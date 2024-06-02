@@ -12,7 +12,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.apache.commons.lang3.tuple.Pair;
 import tfar.teamlife.datagen.Datagen;
-import tfar.teamlife.network.PacketHandlerForge;
+import tfar.teamlife.network.PacketHandlerNeoforge;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +27,7 @@ public class TeamLifeNeoforge {
         eventBus.addListener(Datagen::gather);
         NeoForge.EVENT_BUS.addListener(this::clonePlayer);
         NeoForge.EVENT_BUS.addListener(this::onDamageEvent);
-        eventBus.addListener(PacketHandlerForge::register);
+        eventBus.addListener(PacketHandlerNeoforge::register);
         TeamLife.init();
 
     }

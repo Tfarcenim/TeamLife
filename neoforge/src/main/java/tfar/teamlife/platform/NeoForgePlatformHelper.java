@@ -2,7 +2,6 @@ package tfar.teamlife.platform;
 
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -12,9 +11,8 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.apache.commons.lang3.tuple.Pair;
 import tfar.teamlife.TeamLife;
 import tfar.teamlife.TeamLifeNeoforge;
-import tfar.teamlife.network.PacketHandlerForge;
+import tfar.teamlife.network.PacketHandlerNeoforge;
 import tfar.teamlife.network.client.S2CModPacket;
-import tfar.teamlife.network.client.S2CModTeamPacket;
 import tfar.teamlife.network.server.C2SModPacket;
 import tfar.teamlife.platform.services.IPlatformHelper;
 import net.neoforged.fml.ModList;
@@ -24,8 +22,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class NeoForgePlatformHelper implements IPlatformHelper {
@@ -65,27 +61,28 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
         }
     }
 
-    @Override
-    public void sendToClient(CustomPacketPayload msg, ServerPlayer player) {
-        PacketHandlerForge.sendToClient(msg,player);
-    }
-
-    @Override
-    public void sendToServer(CustomPacketPayload msg) {
-        PacketHandlerForge.sendToServer(msg);
-    }
-
     public static PayloadRegistrar registrar;
-
     @Override
     public <MSG extends S2CModPacket> void registerClientPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec) {
         registrar.playToClient(type, streamCodec, (p, t) -> p.handleClient());
     }
 
     @Override
-    public <MSG extends C2SModPacket> void registerServerPacket(Class<MSG>  packetLocation, Function<FriendlyByteBuf, MSG> reader) {
-
+    public <MSG extends C2SModPacket> void registerServerPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec) {
+        registrar.playToServer(type, streamCodec, (p, t) -> p.handleServer((ServerPlayer) t.player()));
     }
+
+    @Override
+    public void sendToClient(CustomPacketPayload msg, ServerPlayer player) {
+        PacketHandlerNeoforge.sendToClient(msg,player);
+    }
+
+    @Override
+    public void sendToServer(CustomPacketPayload msg) {
+        PacketHandlerNeoforge.sendToServer(msg);
+    }
+
+
 
 
 }

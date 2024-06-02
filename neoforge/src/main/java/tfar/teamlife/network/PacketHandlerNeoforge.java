@@ -6,7 +6,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import tfar.teamlife.platform.NeoForgePlatformHelper;
 
-public class PacketHandlerForge {
+public class PacketHandlerNeoforge {
 
     public static void register(RegisterPayloadHandlersEvent event) {
         NeoForgePlatformHelper.registrar = event.registrar("packets");
