@@ -1,6 +1,5 @@
 package tfar.teamlife.item;
 
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -8,15 +7,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownEnderpearl;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-public class PersonalHeartItem extends Item {
-    public PersonalHeartItem(Properties $$0) {
+public class TeamHeartItem extends Item {
+    public TeamHeartItem(Properties $$0) {
         super($$0);
     }
 

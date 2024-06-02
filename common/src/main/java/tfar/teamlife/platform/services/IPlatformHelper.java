@@ -1,6 +1,14 @@
 package tfar.teamlife.platform.services;
 
 import net.minecraft.core.Registry;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.server.level.ServerPlayer;
+import tfar.teamlife.network.client.S2CModPacket;
+import tfar.teamlife.network.server.C2SModPacket;
+
+import java.util.Collection;
+import java.util.function.Function;
 
 public interface IPlatformHelper {
 
@@ -38,5 +46,17 @@ public interface IPlatformHelper {
 
     <F> void registerAll(Class<?> clazz, Registry<? extends F> registry, Class<F> filter);
 
+
+    void sendToClient(CustomPacketPayload msg, ServerPlayer player);
+
+    default void sendToClients(CustomPacketPayload msg, Collection<ServerPlayer> playerList) {
+        playerList.forEach(player -> sendToClient(msg,player));
+    }
+
+    void sendToServer(CustomPacketPayload msg);
+
+    <MSG extends S2CModPacket> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
+
+    <MSG extends C2SModPacket> void registerServerPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf,MSG> reader);
 
 }

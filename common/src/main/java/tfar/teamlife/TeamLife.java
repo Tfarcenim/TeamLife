@@ -2,10 +2,17 @@ package tfar.teamlife;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.teamlife.init.ModItems;
+import tfar.teamlife.item.PersonalHeartItem;
 import tfar.teamlife.platform.Services;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
@@ -20,6 +27,22 @@ public class TeamLife {
 
     public static void init() {
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
+    }
+
+    //copy personal hearts attribute
+    public static void playerClone(Player oldPlayer, Player newPlayer, boolean wasDeath) {
+        AttributeInstance attributeInstanceOld = oldPlayer.getAttribute(Attributes.MAX_HEALTH);
+        AttributeInstance attributeInstanceNew = newPlayer.getAttribute(Attributes.MAX_HEALTH);
+        if (attributeInstanceOld != null && attributeInstanceNew != null) {
+            AttributeModifier attributeModifierOld = attributeInstanceOld.getModifier(PersonalHeartItem.uuid);
+            if (attributeModifierOld != null) {
+                attributeInstanceNew.addPermanentModifier(attributeModifierOld);
+            }
+        }
+    }
+
+    public static void onDamageEvent(LivingEntity living, DamageSource damageSource,float amount) {
+
     }
 
     public static ResourceLocation id(String path) {

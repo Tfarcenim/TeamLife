@@ -1,5 +1,6 @@
 package tfar.teamlife.platform;
 
+import net.minecraft.core.Registry;
 import tfar.teamlife.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -20,5 +21,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
     public boolean isDevelopmentEnvironment() {
 
         return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
+    @Override
+    public <F> void registerAll(Class<?> clazz, Registry<? extends F> registry, Class<F> filter) {
+
     }
 }

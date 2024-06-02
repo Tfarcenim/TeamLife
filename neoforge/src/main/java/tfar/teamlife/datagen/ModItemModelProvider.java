@@ -2,6 +2,7 @@ package tfar.teamlife.datagen;
 
 import com.google.gson.JsonElement;
 import net.minecraft.data.models.ItemModelGenerators;
+import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.resources.ResourceLocation;
 import tfar.teamlife.init.ModItems;
@@ -18,6 +19,7 @@ public class ModItemModelProvider extends ItemModelGenerators {
     @Override
     public void run() {
         this.generateFlatItem(ModItems.PERSONAL_HEART, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.TEAM_HEART, ModelTemplates.FLAT_ITEM);
     }
 
 

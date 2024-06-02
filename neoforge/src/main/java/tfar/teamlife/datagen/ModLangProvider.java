@@ -20,6 +20,7 @@ public class ModLangProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         addDefaultItem(() -> ModItems.PERSONAL_HEART);
+        addDefaultItem(() -> ModItems.TEAM_HEART);
     }
 
 
