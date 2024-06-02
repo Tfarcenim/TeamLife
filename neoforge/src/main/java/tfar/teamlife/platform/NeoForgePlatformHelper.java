@@ -3,6 +3,8 @@ package tfar.teamlife.platform;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -22,6 +24,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -75,8 +78,8 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public static PayloadRegistrar registrar;
 
     @Override
-    public <MSG extends S2CModPacket> void registerClientPacket(Class<MSG> packetLocation, Function<FriendlyByteBuf, MSG> reader) {
-        registrar.playToClient(S2CModTeamPacket.TYPE, S2CModTeamPacket.STREAM_CODEC, (p, t) -> p.handleClient());
+    public <MSG extends S2CModPacket> void registerClientPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec) {
+        registrar.playToClient(type, streamCodec, (p, t) -> p.handleClient());
     }
 
     @Override

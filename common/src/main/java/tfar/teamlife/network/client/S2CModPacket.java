@@ -1,8 +1,8 @@
 package tfar.teamlife.network.client;
 
-import tfar.teamlife.network.ModPacket;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
-public interface S2CModPacket extends ModPacket {
+public interface S2CModPacket extends CustomPacketPayload {
 
     void handleClient();
 
