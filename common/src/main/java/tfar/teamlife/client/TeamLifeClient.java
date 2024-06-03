@@ -5,41 +5,26 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.ArrayUtils;
-import org.lwjgl.glfw.GLFW;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModMenus;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
 
 public class TeamLifeClient {
 
-    public static final String CATEGORY = "parties.category";
-    public static final String TOG_GLOW_KEY = "key.parties.toggle_glow";
-    public static final String OPEN_PARTY_M_KEY = "key.parties.open_party_menu";
-
-    public static final KeyMapping TOGGLE_GLOW = new KeyMapping(TOG_GLOW_KEY, GLFW.GLFW_KEY_H,CATEGORY);
-    public static final KeyMapping OPEN_PARTY_MENU = new KeyMapping(OPEN_PARTY_M_KEY, GLFW.GLFW_KEY_P,CATEGORY);
-    public static boolean PARTY_MEMBERS_GLOW = true;
-
     static ModTeam team;
 
     public static void registerKeybinds() {
-        registerKeybind(TOGGLE_GLOW);
-        registerKeybind(OPEN_PARTY_MENU);
     }
 
-    public static void clientTick() {
-        if (TOGGLE_GLOW.consumeClick()) {
-            PARTY_MEMBERS_GLOW = !PARTY_MEMBERS_GLOW;
-        }
-
-        if (OPEN_PARTY_MENU.consumeClick()) {
-            openPartyScreen();
-        }
+    public static void setup() {
+        MenuScreens.register(ModMenus.PERSONAL_BEACON, PersonalBeaconScreen::new);
     }
 
     public static void logout() {
@@ -52,9 +37,6 @@ public class TeamLifeClient {
 
     public static void setTeam(ModTeam team) {
         TeamLifeClient.team = team;
-    }
-
-    static void openPartyScreen() {
     }
 
 

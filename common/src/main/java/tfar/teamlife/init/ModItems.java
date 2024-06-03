@@ -8,7 +8,7 @@ public class ModItems {
 
     public static final Item PERSONAL_HEART = new PersonalHeartItem(new Item.Properties());
     public static final Item TEAM_HEART = new TeamHeartItem(new Item.Properties());
-    public static final Item PORTABLE_BEACON = new Item(new Item.Properties());
+    public static final Item PERSONAL_BEACON = new Item(new Item.Properties());
 
 
 }
