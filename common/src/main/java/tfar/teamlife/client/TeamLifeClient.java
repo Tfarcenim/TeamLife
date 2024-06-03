@@ -27,8 +27,6 @@ public class TeamLifeClient {
 
     static ModTeam team;
 
-    public static final ResourceLocation NUMBERS = TeamLife.id("textures/gui/party_number.png");
-
     public static void registerKeybinds() {
         registerKeybind(TOGGLE_GLOW);
         registerKeybind(OPEN_PARTY_MENU);
@@ -92,9 +90,11 @@ public class TeamLifeClient {
             int row = i /10;
             int column = i %10;
             if (i < fullHeartContainers) {
-                renderHeart(guiGraphics,HeartType.FULL,x + column * 10,y + row * 10);
-            } else {
-                renderHeart(guiGraphics,HeartType.EMPTY,x + column * 10,y + row * 10);
+                renderHeart(guiGraphics,HeartType.FULL,x + column * 9,y - row * 10);
+            } else if (i == fullHeartContainers && halfHeart){
+                renderHeart(guiGraphics,HeartType.HALF,x + column * 9,y - row * 10);
+            } else{
+                renderHeart(guiGraphics,HeartType.EMPTY,x + column * 9,y - row * 10);
             }
         }
 

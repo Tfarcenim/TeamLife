@@ -8,6 +8,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
 import tfar.teamlife.TeamLife;
@@ -89,6 +90,26 @@ public class ModTeamsServer extends SavedData {
         }
     }
 
+    public void updateTeam(ModTeam modTeam) {
+        for (UUID member : modTeam.getMembers()) {
+            ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(member);
+            if (player != null) {
+                updateClient(player,modTeam);
+            }
+        }
+    }
+
+    public void adjustHealth(ModTeam modTeam,float amount) {
+        modTeam.health = Mth.clamp(modTeam.health + amount,0,modTeam.maxHealth);
+        updateTeam(modTeam);
+        setDirty();
+    }
+
+    public void adjustMaxHealth(ModTeam modTeam,float amount) {
+        modTeam.maxHealth += amount;
+        updateTeam(modTeam);
+        setDirty();
+    }
 
     @Nullable
     public static ModTeamsServer getInstance(ServerLevel serverLevel) {
@@ -145,6 +166,7 @@ public class ModTeamsServer extends SavedData {
             modTeam.getMembers().remove(player.getUUID());
             updateClient(player,null);
         }));
+        setDirty();
     }
 
 }

@@ -10,11 +10,15 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.GameRules;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tfar.teamlife.client.TeamLifeClient;
 import tfar.teamlife.init.ModItems;
 import tfar.teamlife.item.PersonalHeartItem;
 import tfar.teamlife.platform.Services;
+import tfar.teamlife.world.ModTeam;
 import tfar.teamlife.world.ModTeamsServer;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
@@ -43,8 +47,55 @@ public class TeamLife {
         }
     }
 
-    public static void onDamageEvent(LivingEntity living, DamageSource damageSource,float amount) {
+    //team hearts take damage first
+    //return damage NOT blocked by team hearts
+    public static float onDamageEvent(LivingEntity living, DamageSource damageSource,float amount) {
+        if (living instanceof ServerPlayer serverPlayer) {
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(serverPlayer.server);
+            if (modTeamsServer != null) {
+                ModTeam modTeam = modTeamsServer.findTeam(serverPlayer);
+                if (modTeam != null) {
+                    //health is higher than damage
+                    if (modTeam.health >= amount) {
+                        modTeamsServer.adjustHealth(modTeam,-amount);
+                        return 0;
+                        //damage is higher than health
+                    } else {
+                        float teamHealth = modTeam.health;
+                        modTeamsServer.adjustHealth(modTeam,-teamHealth);
+                        return amount - teamHealth;
+                    }
+                }
+            }
+        }
+        return amount;
+    }
 
+    //heal team hearts first
+    //return healing unused
+    public static float onHealEvent(LivingEntity living, float amount) {
+        if (living instanceof ServerPlayer serverPlayer) {
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(serverPlayer.server);
+            if (modTeamsServer != null) {
+                ModTeam modTeam = modTeamsServer.findTeam(serverPlayer);
+                if (modTeam != null) {
+                    //healing will not go above max team health
+                    if (modTeam.maxHealth >= (amount + modTeam.health)) {
+                        modTeamsServer.adjustHealth(modTeam,amount);
+                        return 0;
+                        //healing will go above max team health
+                    } else {
+                        float teamHealth = modTeam.health;
+                        modTeamsServer.adjustHealth(modTeam,modTeam.maxHealth);
+                        return amount - (modTeam.maxHealth - teamHealth);
+                    }
+                }
+            }
+        }
+        return amount;
+    }
+
+    public static void onPlayerTick(Player player) {
     }
 
     public static void login(ServerPlayer player) {
@@ -53,6 +104,20 @@ public class TeamLife {
             modTeamsServer.updateClient(player);
         }
     }
+
+    @Nullable
+    public static ModTeam getTeamSideSafe(Player player) {
+        if (player.level().isClientSide) {
+            return TeamLifeClient.getTeam();
+        } else {
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(player.getServer());
+            if (modTeamsServer != null) {
+                return modTeamsServer.findTeam((ServerPlayer) player);
+            }
+            return null;
+        }
+    }
+
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);

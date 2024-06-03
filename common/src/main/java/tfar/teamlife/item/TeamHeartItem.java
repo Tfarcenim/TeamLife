@@ -1,5 +1,6 @@
 package tfar.teamlife.item;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,6 +11,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import tfar.teamlife.client.TeamLifeClient;
+import tfar.teamlife.world.ModTeam;
+import tfar.teamlife.world.ModTeamsServer;
 
 import java.util.UUID;
 
@@ -18,8 +22,7 @@ public class TeamHeartItem extends Item {
         super($$0);
     }
 
-    public static final UUID uuid = UUID.fromString("f80b8e46-8f6f-485e-ada3-428f816b3137");
-    static double boost = 2;
+    static float boost = 2;
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
@@ -35,22 +38,27 @@ public class TeamHeartItem extends Item {
                 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F)
         );*/
 
+        boolean worked = false;
         if (!level.isClientSide) {
-
-            AttributeInstance attributeInstance = player.getAttribute(Attributes.MAX_HEALTH);
-            if (attributeInstance != null) {
-                AttributeModifier existing = attributeInstance.getModifier(uuid);
-                if (existing == null) {
-                    attributeInstance.addPermanentModifier(new AttributeModifier(uuid,"Personal Hearts",boost, AttributeModifier.Operation.ADD_VALUE));
-                } else {
-                    attributeInstance.removeModifier(uuid);
-                    attributeInstance.addPermanentModifier(new AttributeModifier(uuid,"Personal Hearts",existing.amount()+boost, AttributeModifier.Operation.ADD_VALUE));
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(level.getServer());
+            if (modTeamsServer != null) {
+                ModTeam modTeam = modTeamsServer.findTeam((ServerPlayer) player);
+                if (modTeam != null) {
+                    modTeamsServer.adjustMaxHealth(modTeam,boost);
+                    worked = true;
                 }
+            }
+        } else {
+            if (TeamLifeClient.getTeam() != null) {
+                worked = true;
             }
         }
 
-        player.awardStat(Stats.ITEM_USED.get(this));
-        itemstack.consume(1, player);
-        return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+        if (worked) {
+            player.awardStat(Stats.ITEM_USED.get(this));
+            itemstack.consume(1, player);
+            return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
+        }
+        return InteractionResultHolder.fail(itemstack);
     }
 }

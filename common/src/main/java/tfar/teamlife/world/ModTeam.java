@@ -17,9 +17,9 @@ public class ModTeam {
 
     private final List<UUID> members = new ArrayList<>();
 
-    public static double STARTING_HEALTH = 20;
-    public double health = STARTING_HEALTH;
-    public double maxHealth = STARTING_HEALTH;
+    public static float STARTING_HEALTH = 20;
+    public float health = STARTING_HEALTH;
+    public float maxHealth = STARTING_HEALTH;
     public String name;
 
     public static ModTeam create(String name) {
@@ -83,8 +83,8 @@ public class ModTeam {
         for (UUID gameProfile : members) {
             buf.writeUUID(gameProfile);
         }
-        buf.writeDouble(health);
-        buf.writeDouble(maxHealth);
+        buf.writeFloat(health);
+        buf.writeFloat(maxHealth);
         buf.writeUtf(name);
     }
 
@@ -95,8 +95,8 @@ public class ModTeam {
             UUID gameProfile = buf.readUUID();
             modTeam.members.add(gameProfile);
         }
-        modTeam.health = buf.readDouble();
-        modTeam.maxHealth = buf.readDouble();
+        modTeam.health = buf.readFloat();
+        modTeam.maxHealth = buf.readFloat();
         modTeam.name = buf.readUtf();
         return modTeam;
     }
