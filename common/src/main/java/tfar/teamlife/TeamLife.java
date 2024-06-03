@@ -1,5 +1,6 @@
 package tfar.teamlife;
 
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -9,13 +10,16 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.teamlife.client.TeamLifeClient;
+import tfar.teamlife.init.ModDataComponents;
 import tfar.teamlife.init.ModItems;
+import tfar.teamlife.init.ModMenus;
 import tfar.teamlife.item.PersonalHeartItem;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
@@ -33,6 +37,9 @@ public class TeamLife {
 
     public static void init() {
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
+        Services.PLATFORM.registerAll(ModMenus.class, BuiltInRegistries.MENU, MenuType.class);
+        Services.PLATFORM.registerAll(ModDataComponents.class, BuiltInRegistries.DATA_COMPONENT_TYPE, DataComponentType.class);
+
     }
 
     //copy personal hearts attribute

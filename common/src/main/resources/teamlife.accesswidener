@@ -8,3 +8,5 @@ accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
 
 accessible method net/minecraft/client/gui/screens/MenuScreens register (Lnet/minecraft/world/inventory/MenuType;Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;)V
 accessible class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
+
+accessible method net/minecraft/world/level/block/entity/BeaconBlockEntity filterEffect (Lnet/minecraft/core/Holder;)Lnet/minecraft/core/Holder;

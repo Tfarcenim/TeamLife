@@ -13,7 +13,6 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import tfar.teamlife.init.ModItems;
 import tfar.teamlife.init.ModMenus;
-import tfar.teamlife.item.PersonalBeaconItem;
 
 public class PersonalBeaconMenu extends AbstractContainerMenu {
 
@@ -35,6 +34,8 @@ public class PersonalBeaconMenu extends AbstractContainerMenu {
     public PersonalBeaconMenu(int id,Inventory inventory) {
         this(id,inventory,new SimpleContainerData(3));
     }
+
+
 
     public PersonalBeaconMenu(int id, Inventory inventory, ContainerData containerData) {
         super(ModMenus.PERSONAL_BEACON,id);
@@ -108,6 +109,18 @@ public class PersonalBeaconMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return beaconStack.is(ModItems.PERSONAL_BEACON);
+    }
+
+
+    @Override
+    public void removed(Player player) {
+        super.removed(player);
+        if (!player.level().isClientSide) {
+            ItemStack itemstack = this.paymentSlot.remove(this.paymentSlot.getMaxStackSize());
+            if (!itemstack.isEmpty()) {
+                player.drop(itemstack, false);
+            }
+        }
     }
 
     static class PaymentSlot extends Slot {
