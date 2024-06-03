@@ -4,6 +4,7 @@ package tfar.teamlife.network;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.network.client.S2CClearModTeamPacket;
 import tfar.teamlife.network.client.S2CModTeamPacket;
 import tfar.teamlife.platform.Services;
 
@@ -20,6 +21,8 @@ public class PacketHandler {
 
     public static void registerClientPackets() {
         Services.PLATFORM.registerClientPacket(S2CModTeamPacket.TYPE,S2CModTeamPacket.STREAM_CODEC);
+        Services.PLATFORM.registerClientPacket(S2CClearModTeamPacket.TYPE,S2CClearModTeamPacket.STREAM_CODEC);
+
     }
 
     public static ResourceLocation packet(Class<?> clazz) {

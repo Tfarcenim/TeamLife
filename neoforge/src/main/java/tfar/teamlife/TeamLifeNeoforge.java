@@ -4,13 +4,17 @@ package tfar.teamlife;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import org.apache.commons.lang3.tuple.Pair;
+import org.spongepowered.asm.mixin.MixinEnvironment;
+import tfar.teamlife.client.TeamLifeClientNeoforge;
 import tfar.teamlife.datagen.Datagen;
 import tfar.teamlife.network.PacketHandlerNeoforge;
 
@@ -27,9 +31,13 @@ public class TeamLifeNeoforge {
         eventBus.addListener(Datagen::gather);
         NeoForge.EVENT_BUS.addListener(this::clonePlayer);
         NeoForge.EVENT_BUS.addListener(this::onDamageEvent);
+        NeoForge.EVENT_BUS.addListener(this::commands);
+        NeoForge.EVENT_BUS.addListener(this::login);
         eventBus.addListener(PacketHandlerNeoforge::register);
+        if (MixinEnvironment.getCurrentEnvironment().getSide() == MixinEnvironment.Side.CLIENT) {
+            TeamLifeClientNeoforge.init(eventBus);
+        }
         TeamLife.init();
-
     }
 
     public static Map<Registry<?>, List<Pair<ResourceLocation, Supplier<?>>>> registerLater = new HashMap<>();
@@ -43,11 +51,19 @@ public class TeamLifeNeoforge {
         }
     }
 
+    private void commands(RegisterCommandsEvent event) {
+        TeamLifeCommands.register(event.getDispatcher());
+    }
+
     private void clonePlayer(PlayerEvent.Clone event) {
         TeamLife.playerClone(event.getOriginal(),event.getEntity(),event.isWasDeath());
     }
 
     private void onDamageEvent(LivingDamageEvent event) {
      TeamLife.onDamageEvent(event.getEntity(),event.getSource(),event.getAmount());
+    }
+
+    private void login(PlayerEvent.PlayerLoggedInEvent event) {
+        TeamLife.login((ServerPlayer) event.getEntity());
     }
 }

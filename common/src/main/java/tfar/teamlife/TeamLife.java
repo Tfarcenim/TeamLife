@@ -2,6 +2,7 @@ package tfar.teamlife;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import tfar.teamlife.init.ModItems;
 import tfar.teamlife.item.PersonalHeartItem;
 import tfar.teamlife.platform.Services;
+import tfar.teamlife.world.ModTeamsServer;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -45,9 +47,17 @@ public class TeamLife {
 
     }
 
+    public static void login(ServerPlayer player) {
+        ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(player.server);
+        if (modTeamsServer != null) {
+            modTeamsServer.updateClient(player);
+        }
+    }
+
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);
     }
+
 
 }
 //1 new feature

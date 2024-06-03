@@ -1,5 +1,6 @@
 package tfar.teamlife.platform.services;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -60,5 +61,10 @@ public interface IPlatformHelper {
     <MSG extends S2CModPacket> void registerClientPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec);
 
     <MSG extends C2SModPacket> void registerServerPacket(CustomPacketPayload.Type<MSG> type, StreamCodec<RegistryFriendlyByteBuf,MSG> streamCodec);
+
+    int guiLeft(Gui gui);
+    int guiRight(Gui gui);
+
+    int setGuiLeft(Gui gui,int guiLeft);
 
 }

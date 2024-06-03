@@ -1,23 +1,19 @@
 package tfar.teamlife.client;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.minecraft.MinecraftProfileTexture;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.resources.DefaultPlayerSkin;
-import net.minecraft.client.resources.SkinManager;
-import net.minecraft.core.UUIDUtil;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.glfw.GLFW;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
-
-import java.util.Map;
 
 public class TeamLifeClient {
 
@@ -63,9 +59,62 @@ public class TeamLifeClient {
     static void openPartyScreen() {
     }
 
-    public static void renderPartyOverlay(Gui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
-        if (team != null) {
 
+    public static void renderGuiLayer(GuiGraphics guiGraphics,float deltaTick) {
+        Gui gui = Minecraft.getInstance().gui;
+        if (team != null) {
+                Entity entity = Minecraft.getInstance().cameraEntity;
+                if (entity instanceof Player player) {
+                    int health = Mth.ceil(team.health);
+                    boolean flag = false;
+
+                    int x = guiGraphics.guiWidth() / 2 - 91;
+                    int y = guiGraphics.guiHeight() - Services.PLATFORM.guiLeft(gui);
+                    float maxHealth = (float) team.maxHealth;
+                    int l1 = Mth.ceil((maxHealth) / 2.0F / 10.0F);
+                    int i2 = Math.max(10 - (l1 - 2), 3);
+                    Services.PLATFORM.setGuiLeft(gui,Services.PLATFORM.guiLeft(gui) + (l1 - 1) * i2 + 10);
+                    int k2 = -1;
+                    Minecraft.getInstance().getProfiler().push("health");
+                    renderTeamHearts(gui,guiGraphics, player, x, y, i2, k2, maxHealth, health, flag);
+                    Minecraft.getInstance().getProfiler().pop();
+                }
+        }
+    }
+
+    private static void renderTeamHearts(Gui gui, GuiGraphics guiGraphics, Player player, int x, int y, int height, int offsetHeartIndex, float maxHealth, float currentHealth, boolean renderHighlight) {
+        boolean hardcore = player.level().getLevelData().isHardcore();
+        int heartContainers = (int) Math.ceil(maxHealth / 2);
+        int fullHeartContainers = (int) Math.floor(currentHealth / 2);
+        boolean halfHeart = Math.floor(currentHealth) % 2 != 0;
+
+        for (int i = 0; i < heartContainers;i++) {
+            int row = i /10;
+            int column = i %10;
+            if (i < fullHeartContainers) {
+                renderHeart(guiGraphics,HeartType.FULL,x + column * 10,y + row * 10);
+            } else {
+                renderHeart(guiGraphics,HeartType.EMPTY,x + column * 10,y + row * 10);
+            }
+        }
+
+    }
+
+    private static void renderHeart(GuiGraphics guiGraphics, HeartType heartType, int x, int y) {
+        RenderSystem.enableBlend();
+        guiGraphics.blitSprite(heartType.id, x, y, 10, 9);
+        RenderSystem.disableBlend();
+    }
+
+    public enum HeartType {
+        EMPTY(TeamLife.id("hud/empty_heart")),
+        HALF(TeamLife.id("hud/half_heart")),
+        FULL(TeamLife.id("hud/full_heart"));
+
+        private final ResourceLocation id;
+
+        HeartType(ResourceLocation id) {
+            this.id = id;
         }
     }
 

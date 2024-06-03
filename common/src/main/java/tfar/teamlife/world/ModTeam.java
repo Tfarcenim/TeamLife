@@ -18,11 +18,13 @@ public class ModTeam {
     private final List<UUID> members = new ArrayList<>();
 
     public static double STARTING_HEALTH = 20;
-    private double health = STARTING_HEALTH;
-    private double maxHealth = STARTING_HEALTH;
+    public double health = STARTING_HEALTH;
+    public double maxHealth = STARTING_HEALTH;
+    public String name;
 
-    public static ModTeam create() {
+    public static ModTeam create(String name) {
         ModTeam modTeam = new ModTeam();
+        modTeam.name = name;
         return modTeam;
     }
 
@@ -52,7 +54,7 @@ public class ModTeam {
 
         compoundTag.putDouble("health",health);
         compoundTag.putDouble("maxHealth",maxHealth);
-
+        compoundTag.putString("name",name);
         return compoundTag;
     }
 
@@ -83,6 +85,7 @@ public class ModTeam {
         }
         buf.writeDouble(health);
         buf.writeDouble(maxHealth);
+        buf.writeUtf(name);
     }
 
     public static ModTeam fromPacket(FriendlyByteBuf buf) {
@@ -94,6 +97,7 @@ public class ModTeam {
         }
         modTeam.health = buf.readDouble();
         modTeam.maxHealth = buf.readDouble();
+        modTeam.name = buf.readUtf();
         return modTeam;
     }
 
@@ -107,7 +111,7 @@ public class ModTeam {
 
         modTeam.health = tag.getInt("health");
         modTeam.maxHealth = tag.getInt("maxHealth");
-
+        modTeam.name = tag.getString("name");
         return modTeam;
     }
 }

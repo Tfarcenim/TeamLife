@@ -1,5 +1,6 @@
 package tfar.teamlife.platform;
 
+import net.minecraft.client.gui.Gui;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -83,6 +84,18 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     }
 
 
+    @Override
+    public int guiRight(Gui gui) {
+        return gui.rightHeight;
+    }
 
+    @Override
+    public int guiLeft(Gui gui) {
+        return gui.leftHeight;
+    }
 
+    @Override
+    public int setGuiLeft(Gui gui, int guiLeft) {
+        return gui.leftHeight = guiLeft;
+    }
 }
