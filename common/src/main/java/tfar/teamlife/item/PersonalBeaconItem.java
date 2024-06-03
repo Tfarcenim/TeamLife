@@ -1,12 +1,17 @@
 package tfar.teamlife.item;
 
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.MenuProvider;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -14,10 +19,14 @@ import net.minecraft.world.inventory.BeaconMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
 import tfar.teamlife.init.ModDataComponents;
 import tfar.teamlife.menu.PersonalBeaconMenu;
+
+import java.util.List;
+import java.util.Objects;
 
 public class PersonalBeaconItem extends Item {
     public PersonalBeaconItem(Properties $$0) {
@@ -36,7 +45,7 @@ public class PersonalBeaconItem extends Item {
                 @Override
                 public int get(int index) {
                     return switch (index) {
-                        case 0 -> 0;//BeaconBlockEntity.this.levels;
+                        case 0 -> 4;//BeaconBlockEntity.this.levels;
                         case 1 -> BeaconMenu.encodeEffect(stack.get(ModDataComponents.PRIMARY_EFFECT));
                         case 2 -> BeaconMenu.encodeEffect(stack.get(ModDataComponents.SECONDARY_EFFECT));
                         default -> 0;
@@ -81,9 +90,52 @@ public class PersonalBeaconItem extends Item {
         return InteractionResultHolder.sidedSuccess(stack,level.isClientSide);
     }
 
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag $$3) {
+        super.appendHoverText(stack, context, tooltip, $$3);
+
+        Holder<MobEffect> primary = stack.get(ModDataComponents.PRIMARY_EFFECT);
+        Holder<MobEffect> secondary = stack.get(ModDataComponents.SECONDARY_EFFECT);
+        if (primary != null) {
+            MutableComponent mutablecomponent = Component.translatable(primary.value().getDescriptionId());
+                mutablecomponent = Component.translatable(
+                        "potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + 0)
+                );
+
+           //     mutablecomponent = Component.translatable(
+         //               "potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, p_332038_, p_332014_);
+
+            tooltip.add(primary.value().getCategory().getTooltipFormatting());
+        }
+
+    }
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isHeld) {
         super.inventoryTick(stack, level, entity, slot, isHeld);
+        if (!level.isClientSide && entity instanceof LivingEntity living && entity.tickCount % 80 == 0) {
+            Holder<MobEffect> primary = stack.get(ModDataComponents.PRIMARY_EFFECT);
+
+            Holder<MobEffect> secondary = stack.get(ModDataComponents.SECONDARY_EFFECT);
+
+            if (primary != null || secondary != null) {
+
+                boolean same = Objects.equals(primary, secondary);
+
+                if (same) {
+                    living.addEffect(new MobEffectInstance(primary, 100, 1));
+                    return;
+                }
+
+                if (primary != null) {
+                    living.addEffect(new MobEffectInstance(primary, 100, 0));
+                }
+
+
+                if (secondary != null) {
+                    living.addEffect(new MobEffectInstance(secondary, 100, 0));
+                }
+            }
+        }
     }
 }

@@ -24,7 +24,7 @@ public class TeamLifeClient {
     }
 
     public static void setup() {
-        MenuScreens.register(ModMenus.PERSONAL_BEACON, PersonalBeaconScreen::new);
+        //MenuScreens.register(ModMenus.PERSONAL_BEACON, PersonalBeaconScreen::new);
     }
 
     public static void logout() {

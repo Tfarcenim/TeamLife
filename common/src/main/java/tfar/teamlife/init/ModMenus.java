@@ -7,6 +7,6 @@ import tfar.teamlife.menu.PersonalBeaconMenu;
 
 public class ModMenus {
 
-    public static final MenuType<PersonalBeaconMenu> PERSONAL_BEACON = new MenuType<>(PersonalBeaconMenu::new, FeatureFlags.VANILLA_SET);
+    //public static final MenuType<PersonalBeaconMenu> PERSONAL_BEACON = new MenuType<>(PersonalBeaconMenu::new, FeatureFlags.VANILLA_SET);
 
 }

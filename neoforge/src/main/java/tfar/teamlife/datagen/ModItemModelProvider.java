@@ -20,6 +20,7 @@ public class ModItemModelProvider extends ItemModelGenerators {
     public void run() {
         this.generateFlatItem(ModItems.PERSONAL_HEART, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.TEAM_HEART, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.PERSONAL_BEACON, ModelTemplates.FLAT_ITEM);
     }
 
 
