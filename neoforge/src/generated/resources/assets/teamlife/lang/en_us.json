@@ -1,4 +1,9 @@
 {
+  "item.teamlife.end_core": "End Core",
+  "item.teamlife.nether_core": "Nether Core",
+  "item.teamlife.overworld_core": "Overworld Core",
+  "item.teamlife.personal_beacon": "Personal Beacon",
   "item.teamlife.personal_heart": "Personal Heart",
-  "item.teamlife.team_heart": "Team Heart"
+  "item.teamlife.team_heart": "Team Heart",
+  "item.teamlife.team_inventory_pouch": "Team Inventory Pouch"
 }

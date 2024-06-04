@@ -1,6 +1,7 @@
 package tfar.teamlife.world;
 
 import com.mojang.authlib.GameProfile;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -8,6 +9,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.entity.player.Player;
+import tfar.teamlife.world.inventory.TeamInventory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +20,20 @@ public class ModTeam {
     private final List<UUID> members = new ArrayList<>();
 
     public static float STARTING_HEALTH = 20;
+    private final HolderLookup.Provider provider;
     public float health = STARTING_HEALTH;
     public float maxHealth = STARTING_HEALTH;
     public String name;
 
-    public static ModTeam create(String name) {
-        ModTeam modTeam = new ModTeam();
+    public TeamInventory teamInventory = new TeamInventory();
+
+
+    public ModTeam(HolderLookup.Provider provider) {
+        this.provider = provider;
+    }
+
+    public static ModTeam create(String name,HolderLookup.Provider provider) {
+        ModTeam modTeam = new ModTeam(provider);
         modTeam.name = name;
         return modTeam;
     }
@@ -42,6 +52,7 @@ public class ModTeam {
     };
 
 
+
     public CompoundTag save() {
         CompoundTag compoundTag = new CompoundTag();
         ListTag listTag = new ListTag();
@@ -55,6 +66,7 @@ public class ModTeam {
         compoundTag.putDouble("health",health);
         compoundTag.putDouble("maxHealth",maxHealth);
         compoundTag.putString("name",name);
+        compoundTag.put("teamInventory", teamInventory.createTag(provider));
         return compoundTag;
     }
 
@@ -89,7 +101,7 @@ public class ModTeam {
     }
 
     public static ModTeam fromPacket(FriendlyByteBuf buf) {
-        ModTeam modTeam = new ModTeam();
+        ModTeam modTeam = new ModTeam(null);
         int size = buf.readInt();
         for (int i = 0; i<size;i++) {
             UUID gameProfile = buf.readUUID();
@@ -101,17 +113,17 @@ public class ModTeam {
         return modTeam;
     }
 
-    public static ModTeam loadStatic(CompoundTag tag) {
-        ModTeam modTeam = new ModTeam();
+    public static ModTeam loadStatic(CompoundTag tag,HolderLookup.Provider provider) {
+        ModTeam modTeam = new ModTeam(provider);
         ListTag listTag = tag.getList("members", Tag.TAG_COMPOUND);
         for (Tag tag1 : listTag) {
             CompoundTag compoundTag = (CompoundTag) tag1;
             modTeam.members.add(compoundTag.getUUID("member"));
         }
-
         modTeam.health = tag.getInt("health");
         modTeam.maxHealth = tag.getInt("maxHealth");
         modTeam.name = tag.getString("name");
+        modTeam.teamInventory.fromTag(tag.getList("teamInventory",Tag.TAG_COMPOUND),provider);
         return modTeam;
     }
 }

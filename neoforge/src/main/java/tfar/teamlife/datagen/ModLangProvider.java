@@ -21,6 +21,11 @@ public class ModLangProvider extends LanguageProvider {
     protected void addTranslations() {
         addDefaultItem(() -> ModItems.PERSONAL_HEART);
         addDefaultItem(() -> ModItems.TEAM_HEART);
+        addDefaultItem(() -> ModItems.PERSONAL_BEACON);
+        addDefaultItem(() -> ModItems.TEAM_INVENTORY_POUCH);
+        addDefaultItem(() -> ModItems.NETHER_CORE);
+        addDefaultItem(() -> ModItems.OVERWORLD_CORE);
+        addDefaultItem(() -> ModItems.END_CORE);
     }
 
 

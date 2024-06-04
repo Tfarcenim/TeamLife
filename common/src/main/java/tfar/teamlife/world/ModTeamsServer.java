@@ -43,7 +43,7 @@ public class ModTeamsServer extends SavedData {
     public boolean createTeam(String name) {
         Optional<ModTeam> optional = findTeam(name);
         if (optional.isPresent()) return false;
-        ModTeam modTeam = ModTeam.create(name);
+        ModTeam modTeam = ModTeam.create(name,serverLevel.registryAccess());
         modTeamList.add(modTeam);
         setDirty();
         return true;
@@ -72,7 +72,7 @@ public class ModTeamsServer extends SavedData {
         ListTag listTag = tag.getList(TeamLife.MOD_ID, Tag.TAG_COMPOUND);
         for (Tag tag1 : listTag) {
             CompoundTag compoundTag = (CompoundTag) tag1;
-            ModTeam modTeam = ModTeam.loadStatic(compoundTag);
+            ModTeam modTeam = ModTeam.loadStatic(compoundTag,serverLevel.registryAccess());
             modTeamList.add(modTeam);
         }
     }
@@ -152,6 +152,10 @@ public class ModTeamsServer extends SavedData {
         return compoundTag;
     }
 
+    @Override
+    public boolean isDirty() {
+        return true;
+    }
 
     public void addMembers(String team, Collection<ServerPlayer> playerList) {
         findTeam(team).ifPresent(modTeam -> playerList.forEach(player -> {

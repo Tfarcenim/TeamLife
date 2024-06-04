@@ -96,16 +96,31 @@ public class PersonalBeaconItem extends Item {
 
         Holder<MobEffect> primary = stack.get(ModDataComponents.PRIMARY_EFFECT);
         Holder<MobEffect> secondary = stack.get(ModDataComponents.SECONDARY_EFFECT);
-        if (primary != null) {
-            MutableComponent mutablecomponent = Component.translatable(primary.value().getDescriptionId());
+        if (primary != null || secondary != null) {
+
+            boolean same = Objects.equals(primary, secondary);
+
+            if (same) {
+                MutableComponent mutablecomponent = Component.translatable(primary.value().getDescriptionId());
                 mutablecomponent = Component.translatable(
-                        "potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + 0)
+                        "potion.withAmplifier", mutablecomponent, Component.translatable("potion.potency." + 1)
                 );
 
-           //     mutablecomponent = Component.translatable(
-         //               "potion.withDuration", mutablecomponent, MobEffectUtil.formatDuration(mobeffectinstance, p_332038_, p_332014_);
+                tooltip.add(mutablecomponent.withStyle(primary.value().getCategory().getTooltipFormatting()));
+                return;
+            }
 
-            tooltip.add(primary.value().getCategory().getTooltipFormatting());
+            if (primary != null) {
+                MutableComponent mutablecomponent = Component.translatable(primary.value().getDescriptionId());
+                tooltip.add(mutablecomponent.withStyle(primary.value().getCategory().getTooltipFormatting()));
+            }
+
+            if (secondary != null) {
+                MutableComponent mutablecomponent = Component.translatable(secondary.value().getDescriptionId());
+                tooltip.add(mutablecomponent.withStyle(secondary.value().getCategory().getTooltipFormatting()));
+            }
+
+
         }
 
     }
