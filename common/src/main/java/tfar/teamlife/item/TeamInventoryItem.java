@@ -29,7 +29,7 @@ public class TeamInventoryItem extends Item {
                 if (modTeam != null) {
                     player.openMenu(
                             new SimpleMenuProvider(
-                                    (p_53124_, p_53125_, p_53126_) -> ChestMenu.sixRows(p_53124_, p_53125_, modTeam.teamInventory), stack.getDisplayName()
+                                    (p_53124_, p_53125_, p_53126_) -> ChestMenu.sixRows(p_53124_, p_53125_, modTeam.teamInventory), stack.getHoverName()
                             )
                     );
                 }

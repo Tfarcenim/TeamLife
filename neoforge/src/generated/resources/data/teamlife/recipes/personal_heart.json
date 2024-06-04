@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "teamlife:health_totem"
+    },
+    "b": {
+      "item": "minecraft:diamond_block"
+    },
+    "g": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "pattern": [
+    "aba",
+    "bgb",
+    "aba"
+  ],
+  "result": {
+    "count": 1,
+    "id": "teamlife:personal_heart"
+  }
+}

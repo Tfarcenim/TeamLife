@@ -33,6 +33,8 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
+
+    maven { url "https://maven.shedaniel.me/" }
 }
 
 // Declare capabilities on the outgoing configurations.

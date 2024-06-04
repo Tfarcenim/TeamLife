@@ -78,6 +78,12 @@ public class TeamLife {
         return amount;
     }
 
+    public static boolean onAttackEvent(LivingEntity living, DamageSource damageSource,float amount) {
+        if (living instanceof ServerPlayer serverPlayer) {
+        }
+        return false;
+    }
+
     //heal team hearts first
     //return healing unused
     public static float onHealEvent(LivingEntity living, float amount) {

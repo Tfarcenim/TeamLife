@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_health_totem": {
+      "conditions": {
+        "items": [
+          {
+            "items": "teamlife:health_totem"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "teamlife:personal_heart"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_health_totem"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "teamlife:personal_heart"
+    ]
+  }
+}

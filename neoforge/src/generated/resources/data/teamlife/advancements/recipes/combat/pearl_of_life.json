@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_personal_heart": {
+      "conditions": {
+        "items": [
+          {
+            "items": "teamlife:personal_heart"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "teamlife:pearl_of_life"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_personal_heart"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "teamlife:pearl_of_life"
+    ]
+  }
+}

@@ -9,8 +9,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingAttackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.entity.living.LivingHurtEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.registries.RegisterEvent;
@@ -37,6 +39,7 @@ public class TeamLifeNeoforge {
         NeoForge.EVENT_BUS.addListener(this::login);
         NeoForge.EVENT_BUS.addListener(this::onHeal);
         NeoForge.EVENT_BUS.addListener(this::onPlayerTick);
+        NeoForge.EVENT_BUS.addListener(this::onAttackEvent);
         eventBus.addListener(PacketHandlerNeoforge::register);
         if (MixinEnvironment.getCurrentEnvironment().getSide() == MixinEnvironment.Side.CLIENT) {
             TeamLifeClientNeoforge.init(eventBus);
@@ -62,6 +65,12 @@ public class TeamLifeNeoforge {
 
     private void clonePlayer(PlayerEvent.Clone event) {
         TeamLife.playerClone(event.getOriginal(), event.getEntity(), event.isWasDeath());
+    }
+
+    private void onAttackEvent(LivingAttackEvent event) {
+        if(TeamLife.onAttackEvent(event.getEntity(),event.getSource(),event.getAmount())) {
+            event.setCanceled(true);
+        }
     }
 
     private void onDamageEvent(LivingDamageEvent event) {

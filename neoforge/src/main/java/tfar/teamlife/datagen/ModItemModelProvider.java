@@ -21,6 +21,13 @@ public class ModItemModelProvider extends ItemModelGenerators {
         this.generateFlatItem(ModItems.PERSONAL_HEART, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.TEAM_HEART, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.PERSONAL_BEACON, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.TEAM_INVENTORY_POUCH, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.NETHER_CORE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.END_CORE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.OVERWORLD_CORE, ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.PEARL_OF_LIFE,ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.HEALTH_TOTEM,ModelTemplates.FLAT_ITEM);
+
     }
 
 

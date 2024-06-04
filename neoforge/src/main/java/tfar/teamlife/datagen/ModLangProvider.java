@@ -26,6 +26,7 @@ public class ModLangProvider extends LanguageProvider {
         addDefaultItem(() -> ModItems.NETHER_CORE);
         addDefaultItem(() -> ModItems.OVERWORLD_CORE);
         addDefaultItem(() -> ModItems.END_CORE);
+        addDefaultItem(() -> ModItems.PEARL_OF_LIFE);
     }
 
 

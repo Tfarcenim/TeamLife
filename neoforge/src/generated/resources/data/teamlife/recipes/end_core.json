@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:end_stone"
+    },
+    "d": {
+      "item": "minecraft:dragon_head"
+    },
+    "e": {
+      "item": "minecraft:end_crystal"
+    },
+    "l": {
+      "item": "minecraft:elytra"
+    },
+    "r": {
+      "item": "minecraft:dragon_breath"
+    }
+  },
+  "pattern": [
+    "ada",
+    "ele",
+    "ara"
+  ],
+  "result": {
+    "count": 1,
+    "id": "teamlife:end_core"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:blaze_powder"
+    },
+    "b": {
+      "item": "minecraft:golden_carrot"
+    },
+    "g": {
+      "item": "minecraft:glistering_melon_slice"
+    },
+    "t": {
+      "item": "minecraft:totem_of_undying"
+    }
+  },
+  "pattern": [
+    "aba",
+    "gtg",
+    "aba"
+  ],
+  "result": {
+    "count": 1,
+    "id": "teamlife:health_totem"
+  }
+}

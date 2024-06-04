@@ -1,10 +1,7 @@
 package tfar.teamlife.init;
 
 import net.minecraft.world.item.Item;
-import tfar.teamlife.item.PersonalBeaconItem;
-import tfar.teamlife.item.PersonalHeartItem;
-import tfar.teamlife.item.TeamHeartItem;
-import tfar.teamlife.item.TeamInventoryItem;
+import tfar.teamlife.item.*;
 
 public class ModItems {
 
@@ -15,6 +12,8 @@ public class ModItems {
     public static final Item NETHER_CORE = new Item(new Item.Properties());
     public static final Item END_CORE = new Item(new Item.Properties());
     public static final Item OVERWORLD_CORE = new Item(new Item.Properties());
+    public static final Item PEARL_OF_LIFE = new PearlOfLifeItem(new Item.Properties());
+    public static final Item HEALTH_TOTEM = new Item(new Item.Properties());
 
 
 }
