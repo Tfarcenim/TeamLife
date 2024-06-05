@@ -5,6 +5,7 @@ import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.BlockStateGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import tfar.teamlife.init.ModBlocks;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -18,7 +19,6 @@ public class ModBlockModelProvider extends BlockModelGenerators {
 
     @Override
     public void run() {
+        createNonTemplateModelBlock(ModBlocks.PEDESTAL);
     }
-
-
 }

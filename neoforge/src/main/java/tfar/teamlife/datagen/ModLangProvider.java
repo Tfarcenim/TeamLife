@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.codehaus.plexus.util.StringUtils;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModBlocks;
 import tfar.teamlife.init.ModItems;
 
 import java.util.function.Supplier;
@@ -19,18 +20,9 @@ public class ModLangProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        addDefaultItem(() -> ModItems.PERSONAL_HEART);
-        addDefaultItem(() -> ModItems.TEAM_HEART);
-        addDefaultItem(() -> ModItems.PERSONAL_BEACON);
-        addDefaultItem(() -> ModItems.TEAM_INVENTORY_POUCH);
-        addDefaultItem(() -> ModItems.NETHER_CORE);
-        addDefaultItem(() -> ModItems.OVERWORLD_CORE);
-        addDefaultItem(() -> ModItems.END_CORE);
-        addDefaultItem(() -> ModItems.PEARL_OF_LIFE);
-        addDefaultItem(() -> ModItems.ENCHANTMENT_TOME);
-        addDefaultItem(() -> ModItems.HEALTH_TOTEM);
-        addDefaultItem(() -> ModItems.ROCKET_ARTIFACT);
-        addDefaultItem(() -> ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
+        Datagen.getKnownItems().forEach(item -> addDefaultItem(() -> item));
+
+        addDefaultBlock(() -> ModBlocks.PEDESTAL);
     }
 
 

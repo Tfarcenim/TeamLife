@@ -1,7 +1,13 @@
 {
+  "block.teamlife.pedestal": "Pedestal",
+  "item.teamlife.chain_chestplate_with_elytra": "Chain Chestplate With Elytra",
+  "item.teamlife.diamond_chestplate_with_elytra": "Diamond Chestplate With Elytra",
   "item.teamlife.enchantment_tome": "Enchantment Tome",
   "item.teamlife.end_core": "End Core",
+  "item.teamlife.gold_chestplate_with_elytra": "Gold Chestplate With Elytra",
   "item.teamlife.health_totem": "Health Totem",
+  "item.teamlife.iron_chestplate_with_elytra": "Iron Chestplate With Elytra",
+  "item.teamlife.leather_chestplate_with_elytra": "Leather Chestplate With Elytra",
   "item.teamlife.nether_core": "Nether Core",
   "item.teamlife.netherite_chestplate_with_elytra": "Netherite Chestplate With Elytra",
   "item.teamlife.overworld_core": "Overworld Core",

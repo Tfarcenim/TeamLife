@@ -16,10 +16,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.teamlife.client.TeamLifeClient;
+import tfar.teamlife.init.ModBlocks;
 import tfar.teamlife.init.ModDataComponents;
 import tfar.teamlife.init.ModItems;
 import tfar.teamlife.init.ModMenus;
@@ -39,6 +41,7 @@ public class TeamLife {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
     public static void init() {
+        Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
         Services.PLATFORM.registerAll(ModMenus.class, BuiltInRegistries.MENU, MenuType.class);
         Services.PLATFORM.registerAll(ModDataComponents.class, BuiltInRegistries.DATA_COMPONENT_TYPE, DataComponentType.class);

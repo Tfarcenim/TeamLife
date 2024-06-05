@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.ElytraLayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import tfar.teamlife.init.ModItems;
+import tfar.teamlife.item.ChestplateWithElytraItem;
 
 public class ChestplateElytraLayer<T extends LivingEntity, M extends EntityModel<T>> extends ElytraLayer<T,M> {
     public ChestplateElytraLayer(RenderLayerParent<T, M> $$0, EntityModelSet entityModelSet) {
@@ -24,7 +24,7 @@ public class ChestplateElytraLayer<T extends LivingEntity, M extends EntityModel
      * @return If the ElytraLayer should render.
      */
     public boolean shouldRender(ItemStack stack, T entity) {
-        return stack.getItem() == ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA;
+        return stack.getItem() instanceof ChestplateWithElytraItem;
     }
 
 }
