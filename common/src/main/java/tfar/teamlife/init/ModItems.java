@@ -19,7 +19,7 @@ public class ModItems {
     public static final Item HEALTH_TOTEM = new Item(new Item.Properties());
     public static final Item ENCHANTMENT_TOME = new Item(new Item.Properties());
     public static final Item ROCKET_ARTIFACT = new ArtifactFireworkRocketItem(new Item.Properties());
-    public static final Item NETHERITE_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.NETHERITE, ArmorItem.Type.CHESTPLATE,new Item.Properties());
+    public static final Item NETHERITE_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.NETHERITE, ArmorItem.Type.CHESTPLATE,new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
 
 
 }
