@@ -1,5 +1,8 @@
 package tfar.teamlife.init;
 
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.Item;
 import tfar.teamlife.item.*;
 
@@ -14,6 +17,9 @@ public class ModItems {
     public static final Item OVERWORLD_CORE = new Item(new Item.Properties());
     public static final Item PEARL_OF_LIFE = new PearlOfLifeItem(new Item.Properties());
     public static final Item HEALTH_TOTEM = new Item(new Item.Properties());
+    public static final Item ENCHANTMENT_TOME = new Item(new Item.Properties());
+    public static final Item ROCKET_ARTIFACT = new ArtifactFireworkRocketItem(new Item.Properties());
+    public static final Item NETHERITE_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.NETHERITE, ArmorItem.Type.CHESTPLATE,new Item.Properties());
 
 
 }

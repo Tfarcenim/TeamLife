@@ -65,7 +65,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.OVERWORLD_CORE)
                 .define('a', ModItems.HEALTH_TOTEM).define('b',Items.DIAMOND_BLOCK)
-                .define('t',Items.GOLDEN_APPLE).define('r',Blocks.GRASS_BLOCK)
+                .define('t',Items.GOLDEN_APPLE).define('r',Blocks.MOSS_BLOCK)
                 .pattern("rbr")
                 .pattern("btb")
                 .pattern("aba")

@@ -1,10 +1,13 @@
-// 1.20.6	2024-06-04T03:44:26.9795207	Model Definitions
+// 1.20.6	2024-06-04T23:37:05.7750146	Model Definitions
+8b081037f72167e637057158de184f0345137657 assets/teamlife/models/item/enchantment_tome.json
 de544c91128b1fdec527bb68aafb38939e564a79 assets/teamlife/models/item/end_core.json
 0c0fa05a318a38443e82ce6c10cefcee05088fe7 assets/teamlife/models/item/health_totem.json
+e637b65c1169c7bb7d02ddc3019ca5d84349c66f assets/teamlife/models/item/netherite_chestplate_with_elytra.json
 45cc3b292fb796fad119781b3065471972126b03 assets/teamlife/models/item/nether_core.json
 64002e9c36c36b139eb993ddeddb36dc78af5578 assets/teamlife/models/item/overworld_core.json
 0a23277309b00bf623a031b5362c388a8545d5e9 assets/teamlife/models/item/pearl_of_life.json
 becc6c1b38e9c566dedf0d882120b107d7e0410d assets/teamlife/models/item/personal_beacon.json
 7d7c94b71463acc719ffca5f59b493916deef120 assets/teamlife/models/item/personal_heart.json
+75bedb1653808934b4cb8f528085f9d52d5bd1ae assets/teamlife/models/item/rocket_artifact.json
 f11694cbc359e7fa66e1264b5ddd979ad0d4d000 assets/teamlife/models/item/team_heart.json
 c110934a0a541227a269a945d26752b618d32b30 assets/teamlife/models/item/team_inventory_pouch.json

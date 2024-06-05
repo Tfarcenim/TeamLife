@@ -27,6 +27,10 @@ public class ModLangProvider extends LanguageProvider {
         addDefaultItem(() -> ModItems.OVERWORLD_CORE);
         addDefaultItem(() -> ModItems.END_CORE);
         addDefaultItem(() -> ModItems.PEARL_OF_LIFE);
+        addDefaultItem(() -> ModItems.ENCHANTMENT_TOME);
+        addDefaultItem(() -> ModItems.HEALTH_TOTEM);
+        addDefaultItem(() -> ModItems.ROCKET_ARTIFACT);
+        addDefaultItem(() -> ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
     }
 
 

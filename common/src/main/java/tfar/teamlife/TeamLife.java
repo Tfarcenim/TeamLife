@@ -5,6 +5,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -80,6 +83,9 @@ public class TeamLife {
 
     public static boolean onAttackEvent(LivingEntity living, DamageSource damageSource,float amount) {
         if (living instanceof ServerPlayer serverPlayer) {
+            if ((damageSource.is(DamageTypes.FALL) || damageSource.is(DamageTypes.FLY_INTO_WALL)) && serverPlayer.getInventory().countItem(ModItems.ROCKET_ARTIFACT) > 0) {
+                return true;
+            }
         }
         return false;
     }
@@ -131,6 +137,18 @@ public class TeamLife {
         }
     }
 
+    public static boolean boostEnchants(Enchantment enchantment,LivingEntity living,int originalLevel) {
+        if (originalLevel <= 0) return false;
+        if (enchantment.getMaxLevel() == 1) return false;
+        if (enchantment ==  Enchantments.LURE) return false;
+        if (living instanceof Player player) {
+            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);
@@ -142,6 +160,8 @@ public class TeamLife {
 //11 new items
 //1 new block
 //
-//I am looking for a mod to make teams and a central health bar. It should lets me have four teams with one health bar each. Each teams health bar replaces the normal health bar each player has so if one person takes damage all people on the team take damage.
+//I am looking for a mod to make teams and a central health bar. It should lets me have four teams with one health bar each.
+// Each teams health bar replaces the normal health bar each player has so if one person takes damage all people on the team take damage.
 //
-//New items/blocks: personal hearts, team hearts, chest plate with elytra, portable beacon, team inventory, enchant multiplier 1.5, infant rockets with no fall damage, Nether core, Overworld core, End core, Center team peace, and artifact pedestal
+//New items/blocks: personal hearts, team hearts, chest plate with elytra, portable beacon, team inventory, enchant multiplier 1.5,
+// infant rockets with no fall damage, Nether core, Overworld core, End core, Center team peace, and artifact pedestal

@@ -27,6 +27,9 @@ public class ModItemModelProvider extends ItemModelGenerators {
         this.generateFlatItem(ModItems.OVERWORLD_CORE, ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.PEARL_OF_LIFE,ModelTemplates.FLAT_ITEM);
         this.generateFlatItem(ModItems.HEALTH_TOTEM,ModelTemplates.FLAT_ITEM);
+        this.generateFlatItem(ModItems.ENCHANTMENT_TOME,ModelTemplates.FLAT_ITEM);
+        generateFlatItem(ModItems.ROCKET_ARTIFACT,ModelTemplates.FLAT_ITEM);
+        generateFlatItem(ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA,ModelTemplates.FLAT_ITEM);
 
     }
 

@@ -1,4 +1,4 @@
-// 1.20.6	2024-06-04T03:44:26.9825217	Recipes
+// 1.20.6	2024-06-04T22:08:56.8711317	Recipes
 9c4447d7921b2a61e6dd0f3bcae0101e35f3b80b data/teamlife/advancements/recipes/combat/pearl_of_life.json
 f9ec39361f46e227ad087581ecade94403b50381 data/teamlife/advancements/recipes/misc/end_core.json
 1b5cc1dcd083bc33d0d5384d679b90ff60d7eb82 data/teamlife/advancements/recipes/misc/health_totem.json
@@ -9,7 +9,7 @@ ab056d75632841da5688dbd655c93eaef4b7403c data/teamlife/advancements/recipes/misc
 f8e5ebce1741460b93af6aae31bb5ef615d3e41f data/teamlife/recipes/end_core.json
 ea205cd9084486ca8da7975df6730bdc9f9f33b0 data/teamlife/recipes/health_totem.json
 faf9b83aa4c01b82de4671f9fc449f7f550802b9 data/teamlife/recipes/nether_core.json
-b56057b13dff75cbf11cdd4b0afc1e8668462a81 data/teamlife/recipes/overworld_core.json
+e096b3376491fd836205d07cbc8e9e5cee500f21 data/teamlife/recipes/overworld_core.json
 c220db8448d097969483879506465cf5b25a3737 data/teamlife/recipes/pearl_of_life.json
 32dfa36e7d1451ae632d046cfb4037b81baf9ea9 data/teamlife/recipes/personal_heart.json
 d1cd5e4bb454c8ff591dc23427581d910a542dc5 data/teamlife/recipes/team_heart.json
