@@ -8,6 +8,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import tfar.teamlife.world.inventory.TeamInventory;
 
@@ -24,6 +25,7 @@ public class ModTeam {
     public float health = STARTING_HEALTH;
     public float maxHealth = STARTING_HEALTH;
     public String name;
+    public UUID uuid;
 
     public TeamInventory teamInventory = new TeamInventory();
 
@@ -35,6 +37,7 @@ public class ModTeam {
     public static ModTeam create(String name,HolderLookup.Provider provider) {
         ModTeam modTeam = new ModTeam(provider);
         modTeam.name = name;
+        modTeam.uuid = Mth.createInsecureUUID();
         return modTeam;
     }
 
@@ -66,6 +69,7 @@ public class ModTeam {
         compoundTag.putDouble("health",health);
         compoundTag.putDouble("maxHealth",maxHealth);
         compoundTag.putString("name",name);
+        compoundTag.putUUID("uuid",uuid);
         compoundTag.put("teamInventory", teamInventory.createTag(provider));
         return compoundTag;
     }
@@ -98,6 +102,7 @@ public class ModTeam {
         buf.writeFloat(health);
         buf.writeFloat(maxHealth);
         buf.writeUtf(name);
+        buf.writeUUID(uuid);
     }
 
     public static ModTeam fromPacket(FriendlyByteBuf buf) {
@@ -110,6 +115,7 @@ public class ModTeam {
         modTeam.health = buf.readFloat();
         modTeam.maxHealth = buf.readFloat();
         modTeam.name = buf.readUtf();
+        modTeam.uuid = buf.readUUID();
         return modTeam;
     }
 
@@ -123,6 +129,7 @@ public class ModTeam {
         modTeam.health = tag.getInt("health");
         modTeam.maxHealth = tag.getInt("maxHealth");
         modTeam.name = tag.getString("name");
+        modTeam.uuid = tag.getUUID("uuid");
         modTeam.teamInventory.fromTag(tag.getList("teamInventory",Tag.TAG_COMPOUND),provider);
         return modTeam;
     }

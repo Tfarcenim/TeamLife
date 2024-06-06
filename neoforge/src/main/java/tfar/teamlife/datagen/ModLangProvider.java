@@ -22,7 +22,7 @@ public class ModLangProvider extends LanguageProvider {
     protected void addTranslations() {
         Datagen.getKnownItems().forEach(item -> addDefaultItem(() -> item));
 
-        addDefaultBlock(() -> ModBlocks.PEDESTAL);
+        //addDefaultBlock(() -> ModBlocks.PEDESTAL);
     }
 
 

@@ -17,14 +17,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tfar.teamlife.client.TeamLifeClient;
-import tfar.teamlife.init.ModBlocks;
-import tfar.teamlife.init.ModDataComponents;
-import tfar.teamlife.init.ModItems;
-import tfar.teamlife.init.ModMenus;
+import tfar.teamlife.init.*;
 import tfar.teamlife.item.PersonalHeartItem;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
@@ -42,6 +40,7 @@ public class TeamLife {
 
     public static void init() {
         Services.PLATFORM.registerAll(ModBlocks.class, BuiltInRegistries.BLOCK, Block.class);
+        Services.PLATFORM.registerAll(ModBlockEntities.class, BuiltInRegistries.BLOCK_ENTITY_TYPE, BlockEntityType.class);
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
         Services.PLATFORM.registerAll(ModMenus.class, BuiltInRegistries.MENU, MenuType.class);
         Services.PLATFORM.registerAll(ModDataComponents.class, BuiltInRegistries.DATA_COMPONENT_TYPE, DataComponentType.class);

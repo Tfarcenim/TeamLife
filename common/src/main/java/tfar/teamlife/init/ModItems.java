@@ -1,9 +1,6 @@
 package tfar.teamlife.init;
 
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
-import net.minecraft.world.item.FireworkRocketItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import tfar.teamlife.item.*;
 
 public class ModItems {
@@ -32,6 +29,9 @@ public class ModItems {
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
     public static final Item NETHERITE_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.NETHERITE, ArmorItem.Type.CHESTPLATE,
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
+
+    public static final Item PEDESTAL = new BlockItem(ModBlocks.PEDESTAL,new Item.Properties());
+
 
 
 }

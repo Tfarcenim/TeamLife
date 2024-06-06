@@ -4,9 +4,13 @@ import com.google.gson.JsonElement;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplate;
 import net.minecraft.data.models.model.ModelTemplates;
+import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import tfar.teamlife.TeamLife;
 import tfar.teamlife.init.ModItems;
 
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -16,23 +20,21 @@ public class ModItemModelProvider extends ItemModelGenerators {
         super(pOutput);
     }
 
-    @Override
-    public void run() {
-        this.generateFlatItem(ModItems.PERSONAL_HEART, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.TEAM_HEART, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.PERSONAL_BEACON, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.TEAM_INVENTORY_POUCH, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.NETHER_CORE, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.END_CORE, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.OVERWORLD_CORE, ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.PEARL_OF_LIFE,ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.HEALTH_TOTEM,ModelTemplates.FLAT_ITEM);
-        this.generateFlatItem(ModItems.ENCHANTMENT_TOME,ModelTemplates.FLAT_ITEM);
-        generateFlatItem(ModItems.ROCKET_ARTIFACT,ModelTemplates.FLAT_ITEM);
-        generateFlatItem(ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA,ModelTemplates.FLAT_ITEM);
-
+    private static ModelTemplate create(String p_125731_, TextureSlot... p_125732_) {
+        return new ModelTemplate(Optional.of(new ResourceLocation(TeamLife.MOD_ID, "block/" + p_125731_)), Optional.empty(), p_125732_);
     }
 
+    ModelTemplate P_TEMPLATE = create("pedestal");
 
 
+    @Override
+    public void run() {
+
+        Datagen.getKnownItems().forEach(item -> {
+            if (!(item instanceof BlockItem)) {
+                generateFlatItem(item,ModelTemplates.FLAT_ITEM);
+            }
+        });
+        generateFlatItem(ModItems.PEDESTAL,P_TEMPLATE);
+    }
 }

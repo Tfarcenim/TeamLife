@@ -1,12 +1,18 @@
-// 1.20.6	2024-06-05T03:10:31.9175459	Model Definitions
+// 1.20.6	2024-06-05T21:14:56.3933386	Model Definitions
 f079264d9eaa4d7b295597989c290d6f4ff59ae2 assets/teamlife/blockstates/pedestal.json
+a05448b246a125c896c51430428f9d5be21e2c2a assets/teamlife/models/item/chain_chestplate_with_elytra.json
+c7854f9c67fd0ea3c77a316b03b4249bbea1f638 assets/teamlife/models/item/diamond_chestplate_with_elytra.json
 8b081037f72167e637057158de184f0345137657 assets/teamlife/models/item/enchantment_tome.json
 de544c91128b1fdec527bb68aafb38939e564a79 assets/teamlife/models/item/end_core.json
+f6d76df0f09da1f37e4a9928995c943a31d79dd6 assets/teamlife/models/item/gold_chestplate_with_elytra.json
 0c0fa05a318a38443e82ce6c10cefcee05088fe7 assets/teamlife/models/item/health_totem.json
+409cb99af0e2a11aa9e8d99a8d2e2681bbfb6510 assets/teamlife/models/item/iron_chestplate_with_elytra.json
+7add239ae4dc4b94391443ff991990dbc4c0b474 assets/teamlife/models/item/leather_chestplate_with_elytra.json
 e637b65c1169c7bb7d02ddc3019ca5d84349c66f assets/teamlife/models/item/netherite_chestplate_with_elytra.json
 45cc3b292fb796fad119781b3065471972126b03 assets/teamlife/models/item/nether_core.json
 64002e9c36c36b139eb993ddeddb36dc78af5578 assets/teamlife/models/item/overworld_core.json
 0a23277309b00bf623a031b5362c388a8545d5e9 assets/teamlife/models/item/pearl_of_life.json
+789fb29cf71c34378907f0c62bb2b414ba3425ca assets/teamlife/models/item/pedestal.json
 becc6c1b38e9c566dedf0d882120b107d7e0410d assets/teamlife/models/item/personal_beacon.json
 7d7c94b71463acc719ffca5f59b493916deef120 assets/teamlife/models/item/personal_heart.json
 75bedb1653808934b4cb8f528085f9d52d5bd1ae assets/teamlife/models/item/rocket_artifact.json
