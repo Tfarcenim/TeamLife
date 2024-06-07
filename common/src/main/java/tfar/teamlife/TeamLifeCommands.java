@@ -4,8 +4,10 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,7 +17,9 @@ import tfar.teamlife.client.TeamLifeClient;
 import tfar.teamlife.world.ModTeam;
 import tfar.teamlife.world.ModTeamsServer;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class TeamLifeCommands {
 
@@ -23,16 +27,29 @@ public class TeamLifeCommands {
         dispatcher.register(Commands.literal(TeamLife.MOD_ID)
                 .then(Commands.literal("add").then(Commands.argument("team", StringArgumentType.word())
                         .executes(TeamLifeCommands::createTeam)))
-                .then(Commands.literal("remove").then(Commands.argument("team", StringArgumentType.word())
+                .then(Commands.literal("remove").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
                         .executes(TeamLifeCommands::removeTeam)))
-                .then(Commands.literal("add_members").then(Commands.argument("team", StringArgumentType.word())
+                .then(Commands.literal("add_members").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
                         .then(Commands.argument("players", EntityArgument.players())
                                 .executes(TeamLifeCommands::addMembers))))
-                .then(Commands.literal("remove_members").then(Commands.argument("team", StringArgumentType.word())
+                .then(Commands.literal("remove_members").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
                         .then(Commands.argument("players", EntityArgument.players())
                                 .executes(TeamLifeCommands::removeMembers))))
+
+                .then(Commands.literal("rename_team").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
+                        .then(Commands.argument("new_name", StringArgumentType.word())
+                                .executes(TeamLifeCommands::renameTeam))))
         );
     }
+
+    private static final SuggestionProvider<CommandSourceStack> ALL_TEAMS = (commandContext, suggestionsBuilder) -> {
+        ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(commandContext.getSource().getServer());
+        List<String> collection = new ArrayList<>();
+        if (modTeamsServer != null) {
+            collection.addAll(modTeamsServer.getModTeamList().stream().map(modTeam -> modTeam.name).toList());
+        }
+        return SharedSuggestionProvider.suggest(collection, suggestionsBuilder);
+    };
 
     private static int createTeam(CommandContext<CommandSourceStack> context) {
         String team = StringArgumentType.getString(context,"team");
@@ -76,5 +93,30 @@ public class TeamLifeCommands {
         return playerList.size();
     }
 
+
+    private static int renameTeam(CommandContext<CommandSourceStack> commandContext) {
+        CommandSourceStack commandSourceStack = commandContext.getSource();
+
+        ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(commandSourceStack.getServer());
+
+        if (modTeamsServer != null) {
+            String nationString = StringArgumentType.getString(commandContext, "team");
+            String name = StringArgumentType.getString(commandContext, "new_name");
+
+            ModTeam modTeam = modTeamsServer.findTeam(nationString);
+
+            if (modTeam == null) {
+                commandSourceStack.sendFailure(Component.literal("Team with name " + nationString + " doesn't exist"));
+                return 0;
+            }
+
+            String oldName = modTeam.name;
+            modTeam.name = name;
+            modTeamsServer.setDirty();
+            commandSourceStack.sendSuccess(() -> Component.literal("Renamed team " + oldName + " to " + name), true);
+            return 1;
+        }
+        return 0;
+    }
 
 }

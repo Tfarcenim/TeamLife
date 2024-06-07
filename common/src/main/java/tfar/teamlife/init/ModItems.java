@@ -19,9 +19,9 @@ public class ModItems {
 
     public static final Item LEATHER_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.LEATHER, ArmorItem.Type.CHESTPLATE,
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
-    public static final Item GOLD_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.GOLD, ArmorItem.Type.CHESTPLATE,
+    public static final Item GOLDEN_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.GOLD, ArmorItem.Type.CHESTPLATE,
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
-    public static final Item CHAIN_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.CHAIN, ArmorItem.Type.CHESTPLATE,
+    public static final Item CHAINMAIL_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.CHAIN, ArmorItem.Type.CHESTPLATE,
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));
     public static final Item IRON_CHESTPLATE_WITH_ELYTRA = new ChestplateWithElytraItem(ArmorMaterials.IRON, ArmorItem.Type.CHESTPLATE,
             new Item.Properties().fireResistant().durability(ArmorItem.Type.CHESTPLATE.getDurability(37)));

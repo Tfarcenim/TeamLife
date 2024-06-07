@@ -3,7 +3,9 @@ package tfar.teamlife.datagen.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import tfar.teamlife.init.ModItems;
 
@@ -76,5 +78,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .requires(ModItems.PERSONAL_HEART)
                 .unlockedBy(getHasName(ModItems.PERSONAL_HEART),has(ModItems.PERSONAL_HEART))
                 .save(pWriter);
+
+        elytraSmithing(pWriter,Items.LEATHER_CHESTPLATE,RecipeCategory.COMBAT,ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.CHAINMAIL_CHESTPLATE,RecipeCategory.COMBAT,ModItems.CHAINMAIL_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.GOLDEN_CHESTPLATE,RecipeCategory.COMBAT,ModItems.GOLDEN_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.IRON_CHESTPLATE,RecipeCategory.COMBAT,ModItems.IRON_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.DIAMOND_CHESTPLATE,RecipeCategory.COMBAT,ModItems.DIAMOND_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.NETHERITE_CHESTPLATE,RecipeCategory.COMBAT,ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
     }
+
+    public static void elytraSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {
+        SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.ELYTRA), Ingredient.of(ingredientItem),
+                Ingredient.of(Items.IRON_NUGGET), category, resultItem).unlocks("has_elytra", has(Items.ELYTRA)).save(recipeOutput, getItemName(resultItem) + "_smithing");
+    }
+
 }

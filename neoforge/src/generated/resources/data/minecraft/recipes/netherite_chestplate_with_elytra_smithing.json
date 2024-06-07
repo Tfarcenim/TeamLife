@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:iron_nugget"
+  },
+  "base": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "result": {
+    "count": 1,
+    "id": "teamlife:netherite_chestplate_with_elytra"
+  },
+  "template": {
+    "item": "minecraft:elytra"
+  }
+}

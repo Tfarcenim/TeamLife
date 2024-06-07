@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "teamlife:item/gold_chestplate_with_elytra"
+    "layer0": "teamlife:item/golden_chestplate_with_elytra"
   }
 }

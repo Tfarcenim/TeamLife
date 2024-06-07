@@ -41,30 +41,34 @@ public class ModTeamsServer extends SavedData {
     }
 
     public boolean createTeam(String name) {
-        Optional<ModTeam> optional = findTeam(name);
-        if (optional.isPresent()) return false;
-        ModTeam modTeam = ModTeam.create(name,serverLevel.registryAccess());
+        ModTeam modTeam = findTeam(name);
+        if (modTeam != null) return false;
+        modTeam = ModTeam.create(name, serverLevel.registryAccess());
         modTeamList.add(modTeam);
         setDirty();
         return true;
     }
 
     public void removeTeamByName(String team) {
-        Optional<ModTeam> optional = findTeam(team);
-        optional.ifPresent(modTeam -> {
+        ModTeam modTeam = findTeam(team);
+        if (modTeam != null) {
             modTeamList.remove(modTeam);
             for (UUID member : modTeam.getMembers()) {
                 ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(member);
                 if (player != null) {
-                    updateClient(player,null);
+                    updateClient(player, null);
                 }
             }
-        });
-        setDirty();
+            setDirty();
+        }
     }
 
-    public Optional<ModTeam> findTeam(String name) {
-        return modTeamList.stream().filter(modTeam -> modTeam.name.equals(name)).findFirst();
+    public List<ModTeam> getModTeamList() {
+        return modTeamList;
+    }
+
+    public ModTeam findTeam(String name) {
+        return modTeamList.stream().filter(modTeam -> modTeam.name.equals(name)).findFirst().orElse(null);
     }
 
     public void load(CompoundTag tag) {
@@ -72,21 +76,21 @@ public class ModTeamsServer extends SavedData {
         ListTag listTag = tag.getList(TeamLife.MOD_ID, Tag.TAG_COMPOUND);
         for (Tag tag1 : listTag) {
             CompoundTag compoundTag = (CompoundTag) tag1;
-            ModTeam modTeam = ModTeam.loadStatic(compoundTag,serverLevel.registryAccess());
+            ModTeam modTeam = ModTeam.loadStatic(compoundTag, serverLevel.registryAccess());
             modTeamList.add(modTeam);
         }
     }
 
     public void updateClient(ServerPlayer player) {
         ModTeam modTeam = findTeam(player);
-        updateClient(player,modTeam);
+        updateClient(player, modTeam);
     }
 
-    public void updateClient(ServerPlayer player,@Nullable ModTeam team) {
+    public void updateClient(ServerPlayer player, @Nullable ModTeam team) {
         if (team != null) {
-            Services.PLATFORM.sendToClient(new S2CModTeamPacket(team),player);
+            Services.PLATFORM.sendToClient(new S2CModTeamPacket(team), player);
         } else {
-            Services.PLATFORM.sendToClient(S2CClearModTeamPacket.INSTANCE,player);
+            Services.PLATFORM.sendToClient(S2CClearModTeamPacket.INSTANCE, player);
         }
     }
 
@@ -94,18 +98,18 @@ public class ModTeamsServer extends SavedData {
         for (UUID member : modTeam.getMembers()) {
             ServerPlayer player = serverLevel.getServer().getPlayerList().getPlayer(member);
             if (player != null) {
-                updateClient(player,modTeam);
+                updateClient(player, modTeam);
             }
         }
     }
 
-    public void adjustHealth(ModTeam modTeam,float amount) {
-        modTeam.health = Mth.clamp(modTeam.health + amount,0,modTeam.maxHealth);
+    public void adjustHealth(ModTeam modTeam, float amount) {
+        modTeam.health = Mth.clamp(modTeam.health + amount, 0, modTeam.maxHealth);
         updateTeam(modTeam);
         setDirty();
     }
 
-    public void adjustMaxHealth(ModTeam modTeam,float amount) {
+    public void adjustMaxHealth(ModTeam modTeam, float amount) {
         modTeam.maxHealth += amount;
         updateTeam(modTeam);
         setDirty();
@@ -114,7 +118,7 @@ public class ModTeamsServer extends SavedData {
     @Nullable
     public static ModTeamsServer getInstance(ServerLevel serverLevel) {
         return serverLevel.getDataStorage()
-                .get(factory(serverLevel),TeamLife.MOD_ID);
+                .get(factory(serverLevel), TeamLife.MOD_ID);
     }
 
     @Nullable
@@ -136,7 +140,7 @@ public class ModTeamsServer extends SavedData {
         return new SavedData.Factory<>(() -> new ModTeamsServer(level), (tag, provider) -> loadStatic(level, tag), null);
     }
 
-    public static ModTeamsServer loadStatic(ServerLevel level,CompoundTag compoundTag) {
+    public static ModTeamsServer loadStatic(ServerLevel level, CompoundTag compoundTag) {
         ModTeamsServer id = new ModTeamsServer(level);
         id.load(compoundTag);
         return id;
@@ -158,19 +162,24 @@ public class ModTeamsServer extends SavedData {
     }
 
     public void addMembers(String team, Collection<ServerPlayer> playerList) {
-        findTeam(team).ifPresent(modTeam -> playerList.forEach(player -> {
-            modTeam.getMembers().add(player.getUUID());
-            updateClient(player,modTeam);
-        }));
-        setDirty();
+        ModTeam modTeam = findTeam(team);
+        if (modTeam != null) {
+            playerList.forEach(player -> {
+                modTeam.getMembers().add(player.getUUID());
+                updateClient(player, modTeam);
+            });
+            setDirty();
+        }
     }
 
-    public void removeMembers(String team,Collection<ServerPlayer> playerList) {
-        findTeam(team).ifPresent(modTeam -> playerList.forEach(player -> {
-            modTeam.getMembers().remove(player.getUUID());
-            updateClient(player,null);
-        }));
-        setDirty();
+    public void removeMembers(String team, Collection<ServerPlayer> playerList) {
+        ModTeam modTeam = findTeam(team);
+        if (modTeam != null) {
+            playerList.forEach(player -> {
+                modTeam.getMembers().remove(player.getUUID());
+                updateClient(player, null);
+            });
+            setDirty();
+        }
     }
-
 }

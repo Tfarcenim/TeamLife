@@ -1,10 +1,10 @@
-// 1.20.6	2024-06-05T21:14:56.3933386	Model Definitions
+// 1.20.6	2024-06-06T19:32:30.6680898	Model Definitions
 f079264d9eaa4d7b295597989c290d6f4ff59ae2 assets/teamlife/blockstates/pedestal.json
-a05448b246a125c896c51430428f9d5be21e2c2a assets/teamlife/models/item/chain_chestplate_with_elytra.json
+290575a4a9ed9b10ec47453515a124540fb4cbf4 assets/teamlife/models/item/chainmail_chestplate_with_elytra.json
 c7854f9c67fd0ea3c77a316b03b4249bbea1f638 assets/teamlife/models/item/diamond_chestplate_with_elytra.json
 8b081037f72167e637057158de184f0345137657 assets/teamlife/models/item/enchantment_tome.json
 de544c91128b1fdec527bb68aafb38939e564a79 assets/teamlife/models/item/end_core.json
-f6d76df0f09da1f37e4a9928995c943a31d79dd6 assets/teamlife/models/item/gold_chestplate_with_elytra.json
+17d8ed5d551e1556c57c713070de3efccbb54ed4 assets/teamlife/models/item/golden_chestplate_with_elytra.json
 0c0fa05a318a38443e82ce6c10cefcee05088fe7 assets/teamlife/models/item/health_totem.json
 409cb99af0e2a11aa9e8d99a8d2e2681bbfb6510 assets/teamlife/models/item/iron_chestplate_with_elytra.json
 7add239ae4dc4b94391443ff991990dbc4c0b474 assets/teamlife/models/item/leather_chestplate_with_elytra.json
