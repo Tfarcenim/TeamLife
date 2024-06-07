@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "teamlife:item/rocket_artifact"
+    "layer0": "teamlife:item/infinite_firework_rocket"
   }
 }

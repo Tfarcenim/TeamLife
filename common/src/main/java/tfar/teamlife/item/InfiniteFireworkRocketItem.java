@@ -13,8 +13,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class ArtifactFireworkRocketItem extends FireworkRocketItem {
-    public ArtifactFireworkRocketItem(Properties $$0) {
+public class InfiniteFireworkRocketItem extends FireworkRocketItem {
+    public InfiniteFireworkRocketItem(Properties $$0) {
         super($$0);
     }
 

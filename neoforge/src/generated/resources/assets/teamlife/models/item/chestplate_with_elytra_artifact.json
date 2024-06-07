@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "teamlife:item/chestplate_with_elytra_artifact"
+  }
+}

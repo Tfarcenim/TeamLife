@@ -15,7 +15,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.Nullable;
@@ -85,7 +84,7 @@ public class TeamLife {
 
     public static boolean onAttackEvent(LivingEntity living, DamageSource damageSource,float amount) {
         if (living instanceof ServerPlayer serverPlayer) {
-            if ((damageSource.is(DamageTypes.FALL) || damageSource.is(DamageTypes.FLY_INTO_WALL)) && serverPlayer.getInventory().countItem(ModItems.ROCKET_ARTIFACT) > 0) {
+            if ((damageSource.is(DamageTypes.FALL) || damageSource.is(DamageTypes.FLY_INTO_WALL)) && serverPlayer.getInventory().countItem(ModItems.INFINITE_FIREWORK_ROCKET) > 0) {
                 return true;
             }
         }
