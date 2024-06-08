@@ -3,7 +3,6 @@ package tfar.teamlife.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -23,8 +22,6 @@ import org.jetbrains.annotations.Nullable;
 import tfar.teamlife.blockentity.PedestalBlockEntity;
 import tfar.teamlife.world.ModTeam;
 import tfar.teamlife.world.ModTeamsServer;
-
-import java.util.UUID;
 
 public class PedestalBlock extends Block implements EntityBlock {
     public PedestalBlock(Properties $$0) {
@@ -61,19 +58,13 @@ public class PedestalBlock extends Block implements EntityBlock {
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState $$3, boolean $$4) {
-
         BlockEntity blockEntity = level.getBlockEntity(pos);
-
         if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity) {
-
             if (!level.isClientSide) {
                 Containers.dropItemStack(level,pos.getX(),pos.getY(),pos.getZ(),pedestalBlockEntity.item);
                 pedestalBlockEntity.onItemChange(pedestalBlockEntity.item.getItem(), ItemStack.EMPTY.getItem());
-
             }
-
         }
-
         super.onRemove(state, level, pos, $$3, $$4);
     }
 
@@ -91,8 +82,8 @@ public class PedestalBlock extends Block implements EntityBlock {
                     }
                 }
                 if (pedestalBlockEntity.item.isEmpty()) {
-                    pedestalBlockEntity.setItem(itemStack.copy());
-                    player.setItemInHand(hand,ItemStack.EMPTY);
+                    pedestalBlockEntity.setItem(itemStack.split(1));
+                    player.setItemInHand(hand,itemStack);
                 } else {
                     if (player.getItemInHand(hand).isEmpty()) {
                         player.setItemInHand(hand,pedestalBlockEntity.item.copy());

@@ -76,6 +76,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(Items.DIAMOND_BLOCK),has(Items.DIAMOND_BLOCK))
                 .save(pWriter);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.INFINITE_FIREWORK_ROCKET)
+                .define('f', Items.FEATHER).define('b',Items.DIAMOND_BLOCK)
+                .define('e',Items.ELYTRA).define('r',Items.FIREWORK_ROCKET)
+                .pattern("fbf")
+                .pattern("rer")
+                .pattern("fbf")
+                .unlockedBy(getHasName(Items.DIAMOND_BLOCK),has(Items.DIAMOND_BLOCK))
+                .save(pWriter);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PEDESTAL)
                 .define('a', Items.STONE_SLAB).define('b',Items.LODESTONE)
                 .pattern("aaa")

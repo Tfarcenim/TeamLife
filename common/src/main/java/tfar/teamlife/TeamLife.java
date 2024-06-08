@@ -97,7 +97,7 @@ public class TeamLife {
 
     public static boolean onAttackEvent(LivingEntity living, DamageSource damageSource,float amount) {
         if (living instanceof ServerPlayer serverPlayer) {
-            if ((damageSource.is(DamageTypes.FALL) || damageSource.is(DamageTypes.FLY_INTO_WALL)) && serverPlayer.getInventory().countItem(ModItems.INFINITE_FIREWORK_ROCKET) > 0) {
+            if (damageSource.is(DamageTypes.FLY_INTO_WALL) && serverPlayer.getInventory().countItem(ModItems.INFINITE_FIREWORK_ROCKET) > 0 && canPlayerUseArtifact(serverPlayer,ModItems.INFINITE_FIREWORK_ROCKET)) {
                 return true;
             }
         }

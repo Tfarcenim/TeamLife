@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "minecraft:diamond_block"
+    },
+    "e": {
+      "item": "minecraft:elytra"
+    },
+    "f": {
+      "item": "minecraft:feather"
+    },
+    "r": {
+      "item": "minecraft:firework_rocket"
+    }
+  },
+  "pattern": [
+    "fbf",
+    "rer",
+    "fbf"
+  ],
+  "result": {
+    "count": 1,
+    "id": "teamlife:infinite_firework_rocket"
+  }
+}

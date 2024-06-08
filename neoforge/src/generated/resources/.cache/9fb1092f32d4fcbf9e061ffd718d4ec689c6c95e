@@ -1,4 +1,4 @@
-// 1.20.6	2024-06-08T12:13:45.3609545	Recipes
+// 1.20.6	2024-06-08T18:20:44.9096299	Recipes
 6605929e9a67c9799176c12ba2639bef8f88a384 data/minecraft/advancements/recipes/combat/chainmail_chestplate_with_elytra_smithing.json
 ec3b9533938723cdb6c5c32c31d45933fefbc9e4 data/minecraft/advancements/recipes/combat/diamond_chestplate_with_elytra_smithing.json
 caadc50029deabdc1895aab42da8d1bcc358e4fd data/minecraft/advancements/recipes/combat/golden_chestplate_with_elytra_smithing.json
@@ -14,6 +14,7 @@ efbaec4ef70b19b453b72ca61bcd9545a96763df data/minecraft/recipes/leather_chestpla
 9c4447d7921b2a61e6dd0f3bcae0101e35f3b80b data/teamlife/advancements/recipes/combat/pearl_of_life.json
 f9ec39361f46e227ad087581ecade94403b50381 data/teamlife/advancements/recipes/misc/end_core.json
 1b5cc1dcd083bc33d0d5384d679b90ff60d7eb82 data/teamlife/advancements/recipes/misc/health_totem.json
+8c42d0d4f410762c87882c9e58136cabe577d467 data/teamlife/advancements/recipes/misc/infinite_firework_rocket.json
 f8c7a0ec0f3b425331840d66cbd0f9d17095556e data/teamlife/advancements/recipes/misc/nether_core.json
 3eba50bd9a93ee7d5b97440d943bdc0a494375d9 data/teamlife/advancements/recipes/misc/overworld_core.json
 d91eaf2f9467a7d8f2bee2fb85b90e9999122bab data/teamlife/advancements/recipes/misc/pedestal.json
@@ -21,6 +22,7 @@ d91eaf2f9467a7d8f2bee2fb85b90e9999122bab data/teamlife/advancements/recipes/misc
 9e629355e8554e44e5de4155a613ab1fcc9bf79d data/teamlife/advancements/recipes/misc/team_heart.json
 f186e2fd0c421a7d27590effd5b6c6eff8678b35 data/teamlife/recipes/end_core.json
 ea205cd9084486ca8da7975df6730bdc9f9f33b0 data/teamlife/recipes/health_totem.json
+02e422b72bbbe587caf5e8a56d19f7e3892be178 data/teamlife/recipes/infinite_firework_rocket.json
 faf9b83aa4c01b82de4671f9fc449f7f550802b9 data/teamlife/recipes/nether_core.json
 c507249725bf99bfd8e8a2f8c5128f433db3a2fc data/teamlife/recipes/overworld_core.json
 cd655273764106a13de49569129c07bd4398bb9c data/teamlife/recipes/pearl_of_life.json

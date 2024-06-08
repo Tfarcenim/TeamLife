@@ -29,9 +29,7 @@ public class InfiniteFireworkRocketItem extends FireworkRocketItem implements Ar
         Level level = context.getLevel();
         Player player = context.getPlayer();
 
-        ModTeam modTeam = TeamLife.getTeamSideSafe(player);
-
-        if (!TeamLife.canUseArtifact(modTeam,this)) return InteractionResult.FAIL;
+        if (!TeamLife.canPlayerUseArtifact(player,this)) return InteractionResult.FAIL;
 
         if (!level.isClientSide) {
             ItemStack $$2 = context.getItemInHand();
@@ -48,9 +46,7 @@ public class InfiniteFireworkRocketItem extends FireworkRocketItem implements Ar
         if (player.isFallFlying()) {
             ItemStack stack = player.getItemInHand(hand);
 
-            ModTeam modTeam = TeamLife.getTeamSideSafe(player);
-
-            if (!TeamLife.canUseArtifact(modTeam,this)) return InteractionResultHolder.fail(stack);
+            if (!TeamLife.canPlayerUseArtifact(player,this)) return InteractionResultHolder.fail(stack);
 
             if (!$$0.isClientSide) {
                 FireworkRocketEntity $$4 = new FireworkRocketEntity($$0, stack, player);
