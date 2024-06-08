@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "teamlife:item/portable_beacon_artifact"
+    "layer0": "teamlife:item/team_inventory_pouch_artifact"
   }
 }

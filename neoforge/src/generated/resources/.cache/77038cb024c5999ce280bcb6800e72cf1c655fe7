@@ -1,4 +1,4 @@
-// 1.20.6	2024-06-07T16:32:26.6283361	Model Definitions
+// 1.20.6	2024-06-07T21:28:33.0397639	Model Definitions
 f079264d9eaa4d7b295597989c290d6f4ff59ae2 assets/teamlife/blockstates/pedestal.json
 290575a4a9ed9b10ec47453515a124540fb4cbf4 assets/teamlife/models/item/chainmail_chestplate_with_elytra.json
 87268cbd8185bea4cde29f35b1bb2166bb250b8a assets/teamlife/models/item/chestplate_with_elytra_artifact.json
@@ -18,8 +18,8 @@ e637b65c1169c7bb7d02ddc3019ca5d84349c66f assets/teamlife/models/item/netherite_c
 0a23277309b00bf623a031b5362c388a8545d5e9 assets/teamlife/models/item/pearl_of_life.json
 789fb29cf71c34378907f0c62bb2b414ba3425ca assets/teamlife/models/item/pedestal.json
 becc6c1b38e9c566dedf0d882120b107d7e0410d assets/teamlife/models/item/personal_beacon.json
+7edffc4a84d06134750fc3e02feec5ed958ad826 assets/teamlife/models/item/personal_beacon_artifact.json
 7d7c94b71463acc719ffca5f59b493916deef120 assets/teamlife/models/item/personal_heart.json
-9b958a48cf4b2c6df29c25a18191178d93f8497c assets/teamlife/models/item/portable_beacon_artifact.json
 f11694cbc359e7fa66e1264b5ddd979ad0d4d000 assets/teamlife/models/item/team_heart.json
 c110934a0a541227a269a945d26752b618d32b30 assets/teamlife/models/item/team_inventory_pouch.json
-7d50ef2dd2fe6a310a0f988867ee54be7c36f9cd assets/teamlife/models/item/team_pouch_artifact.json
+3cae5dc47e08f95afa4297297227e31cef77288c assets/teamlife/models/item/team_inventory_pouch_artifact.json

@@ -23,7 +23,7 @@ public class PedestalBlockEntityRenderer implements BlockEntityRenderer<Pedestal
     public void render(PedestalBlockEntity pedestalBlockEntity, float v, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, int i1) {
         if (!pedestalBlockEntity.item.isEmpty()) {
             poseStack.translate(.5,1.5,.5);
-            float rotationspeed = 1;
+            float rotationspeed = .05f;
             long ticks = pedestalBlockEntity.getLevel().getGameTime();
 
 

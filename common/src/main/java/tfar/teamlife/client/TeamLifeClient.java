@@ -5,14 +5,12 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.teamlife.TeamLife;
-import tfar.teamlife.init.ModMenus;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
 
@@ -64,8 +62,8 @@ public class TeamLifeClient {
 
     private static void renderTeamHearts(Gui gui, GuiGraphics guiGraphics, Player player, int x, int y, int height, int offsetHeartIndex, float maxHealth, float currentHealth, boolean renderHighlight) {
         boolean hardcore = player.level().getLevelData().isHardcore();
-        int heartContainers = (int) Math.ceil(maxHealth / 2);
-        int fullHeartContainers = (int) Math.floor(currentHealth / 2);
+        int heartContainers = (int) Math.min(Math.ceil(maxHealth / 2),100);
+        int fullHeartContainers =(int) Math.min(Math.floor(currentHealth / 2),100);
         boolean halfHeart = Math.floor(currentHealth) % 2 != 0;
 
         for (int i = 0; i < heartContainers;i++) {

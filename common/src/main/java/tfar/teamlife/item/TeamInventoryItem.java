@@ -10,10 +10,14 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModItems;
 import tfar.teamlife.world.ModTeam;
 import tfar.teamlife.world.ModTeamsServer;
 
-public class TeamInventoryItem extends Item {
+import java.util.Set;
+
+public class TeamInventoryItem extends Item implements Artifact {
     public TeamInventoryItem(Properties $$0) {
         super($$0);
     }
@@ -21,6 +25,8 @@ public class TeamInventoryItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+
+        if (!TeamLife.canUseArtifact(TeamLife.getTeamSideSafe(player),this)) return InteractionResultHolder.fail(stack);
 
         if (!level.isClientSide) {
             ModTeamsServer modTeamsServer = ModTeamsServer.getInstance((ServerLevel) level);
@@ -37,5 +43,10 @@ public class TeamInventoryItem extends Item {
         }
 
         return InteractionResultHolder.sidedSuccess(stack,level.isClientSide);
+    }
+
+    @Override
+    public Set<Item> usable() {
+        return this == ModItems.TEAM_INVENTORY_POUCH_ARTIFACT ? Set.of(ModItems.TEAM_INVENTORY_POUCH,this) : Set.of();
     }
 }

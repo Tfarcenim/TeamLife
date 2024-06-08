@@ -40,6 +40,16 @@ public class ModTeamsServer extends SavedData {
         return null;
     }
 
+    @Nullable
+    public ModTeam findTeamByUUID(UUID teamUUID) {
+        for (ModTeam modTeam : modTeamList) {
+            if (teamUUID.equals(modTeam.uuid)) {
+                return modTeam;
+            }
+        }
+        return null;
+    }
+
     public boolean createTeam(String name) {
         ModTeam modTeam = findTeam(name);
         if (modTeam != null) return false;
@@ -168,6 +178,10 @@ public class ModTeamsServer extends SavedData {
                 modTeam.getMembers().add(player.getUUID());
                 updateClient(player, modTeam);
             });
+
+            modTeam.defaultHealth();
+            updateTeam(modTeam);
+
             setDirty();
         }
     }
@@ -179,6 +193,10 @@ public class ModTeamsServer extends SavedData {
                 modTeam.getMembers().remove(player.getUUID());
                 updateClient(player, null);
             });
+
+            modTeam.defaultHealth();
+            updateTeam(modTeam);
+
             setDirty();
         }
     }

@@ -8,42 +8,64 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.FireworkRocketItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModItems;
+import tfar.teamlife.world.ModTeam;
+import tfar.teamlife.world.ModTeamsServer;
 
-public class InfiniteFireworkRocketItem extends FireworkRocketItem {
+import java.util.Set;
+
+public class InfiniteFireworkRocketItem extends FireworkRocketItem implements Artifact{
     public InfiniteFireworkRocketItem(Properties $$0) {
         super($$0);
     }
 
-    public InteractionResult useOn(UseOnContext $$0) {
-        Level $$1 = $$0.getLevel();
-        if (!$$1.isClientSide) {
-            ItemStack $$2 = $$0.getItemInHand();
-            Vec3 $$3 = $$0.getClickLocation();
-            Direction $$4 = $$0.getClickedFace();
-            FireworkRocketEntity $$5 = new FireworkRocketEntity($$1, $$0.getPlayer(), $$3.x + (double)$$4.getStepX() * 0.15, $$3.y + (double)$$4.getStepY() * 0.15, $$3.z + (double)$$4.getStepZ() * 0.15, $$2);
-            $$1.addFreshEntity($$5);
+    public InteractionResult useOn(UseOnContext context) {
+        Level level = context.getLevel();
+        Player player = context.getPlayer();
+
+        ModTeam modTeam = TeamLife.getTeamSideSafe(player);
+
+        if (!TeamLife.canUseArtifact(modTeam,this)) return InteractionResult.FAIL;
+
+        if (!level.isClientSide) {
+            ItemStack $$2 = context.getItemInHand();
+            Vec3 $$3 = context.getClickLocation();
+            Direction $$4 = context.getClickedFace();
+            FireworkRocketEntity $$5 = new FireworkRocketEntity(level, context.getPlayer(), $$3.x + (double)$$4.getStepX() * 0.15, $$3.y + (double)$$4.getStepY() * 0.15, $$3.z + (double)$$4.getStepZ() * 0.15, $$2);
+            level.addFreshEntity($$5);
         }
 
-        return InteractionResult.sidedSuccess($$1.isClientSide);
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level $$0, Player $$1, InteractionHand $$2) {
-        if ($$1.isFallFlying()) {
-            ItemStack $$3 = $$1.getItemInHand($$2);
+    public InteractionResultHolder<ItemStack> use(Level $$0, Player player, InteractionHand hand) {
+        if (player.isFallFlying()) {
+            ItemStack stack = player.getItemInHand(hand);
+
+            ModTeam modTeam = TeamLife.getTeamSideSafe(player);
+
+            if (!TeamLife.canUseArtifact(modTeam,this)) return InteractionResultHolder.fail(stack);
+
             if (!$$0.isClientSide) {
-                FireworkRocketEntity $$4 = new FireworkRocketEntity($$0, $$3, $$1);
+                FireworkRocketEntity $$4 = new FireworkRocketEntity($$0, stack, player);
                 $$0.addFreshEntity($$4);
-                $$1.awardStat(Stats.ITEM_USED.get(this));
+                player.awardStat(Stats.ITEM_USED.get(this));
             }
 
-            return InteractionResultHolder.sidedSuccess($$1.getItemInHand($$2), $$0.isClientSide());
+            return InteractionResultHolder.sidedSuccess(player.getItemInHand(hand), $$0.isClientSide());
         } else {
-            return InteractionResultHolder.pass($$1.getItemInHand($$2));
+            return InteractionResultHolder.pass(player.getItemInHand(hand));
         }
     }
 
+    @Override
+    public Set<Item> usable() {
+        return this == ModItems.INFINITE_FIREWORK_ROCKET_ARTIFACT ? Set.of(ModItems.INFINITE_FIREWORK_ROCKET,this) :Set.of();
+    }
 }

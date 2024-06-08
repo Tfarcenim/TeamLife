@@ -17,9 +17,9 @@
   "item.teamlife.overworld_core": "Overworld Core",
   "item.teamlife.pearl_of_life": "Pearl Of Life",
   "item.teamlife.personal_beacon": "Personal Beacon",
+  "item.teamlife.personal_beacon_artifact": "Personal Beacon Artifact",
   "item.teamlife.personal_heart": "Personal Heart",
-  "item.teamlife.portable_beacon_artifact": "Portable Beacon Artifact",
   "item.teamlife.team_heart": "Team Heart",
   "item.teamlife.team_inventory_pouch": "Team Inventory Pouch",
-  "item.teamlife.team_pouch_artifact": "Team Pouch Artifact"
+  "item.teamlife.team_inventory_pouch_artifact": "Team Inventory Pouch Artifact"
 }

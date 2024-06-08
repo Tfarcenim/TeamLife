@@ -126,7 +126,8 @@ public class TeamLife {
     }
 
     @Nullable
-    public static ModTeam getTeamSideSafe(Player player) {
+    public static ModTeam getTeamSideSafe(@Nullable Player player) {
+        if (player == null) return null;
         if (player.level().isClientSide) {
             return TeamLifeClient.getTeam();
         } else {
@@ -143,13 +144,28 @@ public class TeamLife {
         if (enchantment.getMaxLevel() == 1) return false;
         if (enchantment ==  Enchantments.LURE) return false;
         if (living instanceof Player player) {
+            if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME_ARTIFACT)) return false;
+            if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME)) return false;
+
             if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
                 return true;
             }
+
+            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME_ARTIFACT) > 0) {
+                return true;
+            }
+
         }
         return false;
     }
 
+    public static boolean canUseArtifact(@Nullable ModTeam modTeam,Item artifactItem) {
+        return modTeam != null && modTeam.usableArtifacts.contains(artifactItem);
+    }
+
+    public static boolean canPlayerUseArtifact(Player player,Item item) {
+        return canUseArtifact(getTeamSideSafe(player),item);
+    }
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);

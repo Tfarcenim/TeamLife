@@ -58,7 +58,7 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.END_CORE)
                 .define('a', Blocks.END_STONE).define('d',Items.DRAGON_HEAD)
                 .define('e',Items.END_CRYSTAL).define('l',Items.ELYTRA)
-                .define('r',Items.DRAGON_BREATH)
+                .define('r',Items.DRAGON_EGG)
                 .pattern("ada")
                 .pattern("ele")
                 .pattern("ara")

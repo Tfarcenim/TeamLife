@@ -22,13 +22,16 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import tfar.teamlife.TeamLife;
 import tfar.teamlife.init.ModDataComponents;
+import tfar.teamlife.init.ModItems;
 import tfar.teamlife.menu.PersonalBeaconMenu;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
-public class PersonalBeaconItem extends Item {
+public class PersonalBeaconItem extends Item implements Artifact {
     public PersonalBeaconItem(Properties $$0) {
         super($$0);
     }
@@ -36,6 +39,8 @@ public class PersonalBeaconItem extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
+
+        if (!TeamLife.canUseArtifact(TeamLife.getTeamSideSafe(player),this)) return InteractionResultHolder.fail(stack);
 
         if (level.isClientSide) {
             return InteractionResultHolder.success(stack);
@@ -152,5 +157,10 @@ public class PersonalBeaconItem extends Item {
                 }
             }
         }
+    }
+
+    @Override
+    public Set<Item> usable() {
+        return this == ModItems.PERSONAL_BEACON_ARTIFACT ? Set.of(this,ModItems.PERSONAL_BEACON) : Set.of();
     }
 }
