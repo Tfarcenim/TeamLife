@@ -12,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -43,6 +44,7 @@ public class TeamLife {
         Services.PLATFORM.registerAll(ModItems.class, BuiltInRegistries.ITEM, Item.class);
         Services.PLATFORM.registerAll(ModMenus.class, BuiltInRegistries.MENU, MenuType.class);
         Services.PLATFORM.registerAll(ModDataComponents.class, BuiltInRegistries.DATA_COMPONENT_TYPE, DataComponentType.class);
+        Services.PLATFORM.registerAll(ModCreativeTabs.class, BuiltInRegistries.CREATIVE_MODE_TAB, CreativeModeTab.class);
 
     }
 
@@ -56,6 +58,17 @@ public class TeamLife {
                 attributeInstanceNew.addPermanentModifier(attributeModifierOld);
             }
         }
+
+        if (wasDeath) {
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(oldPlayer.getServer());
+            if (modTeamsServer != null) {
+                ModTeam modTeam = getTeamSideSafe(oldPlayer);
+                if (modTeam != null) {
+                    modTeamsServer.refillMaxHealth(modTeam);
+                }
+            }
+        }
+
     }
 
     //team hearts take damage first
@@ -141,11 +154,34 @@ public class TeamLife {
 
     public static boolean boostEnchants(Enchantment enchantment,LivingEntity living,int originalLevel) {
         if (originalLevel <= 0) return false;
-        if (enchantment.getMaxLevel() == 1) return false;
-        if (enchantment ==  Enchantments.LURE) return false;
+        if (!allowBoosting(enchantment)) return false;
         if (living instanceof Player player) {
             if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME_ARTIFACT)) return false;
             if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME)) return false;
+
+            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
+                return true;
+            }
+
+            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME_ARTIFACT) > 0) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    static boolean allowBoosting(Enchantment enchantment) {
+        return enchantment.getMaxLevel() > 1 && enchantment != Enchantments.LURE;
+    }
+
+    public static boolean boostItemEnchants(Enchantment enchantment,int originalLevel) {
+        if (originalLevel <= 0) return false;
+        if (!allowBoosting(enchantment)) return false;
+        if (playerThreadLocal.get() != null) {
+            Player player = playerThreadLocal.get();
+            if (!canPlayerUseArtifact(player,ModItems.ENCHANTMENT_TOME_ARTIFACT)) return false;
+            if (!canPlayerUseArtifact(player,ModItems.ENCHANTMENT_TOME)) return false;
 
             if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
                 return true;
@@ -166,6 +202,9 @@ public class TeamLife {
     public static boolean canPlayerUseArtifact(Player player,Item item) {
         return canUseArtifact(getTeamSideSafe(player),item);
     }
+
+    public static ThreadLocal<Player> playerThreadLocal = ThreadLocal.withInitial(() -> null);
+
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);

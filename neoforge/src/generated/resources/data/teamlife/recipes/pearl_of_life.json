@@ -3,7 +3,31 @@
   "category": "equipment",
   "ingredients": [
     {
+      "item": "teamlife:enchantment_tome"
+    },
+    {
       "item": "teamlife:personal_heart"
+    },
+    {
+      "tag": "teamlife:chestplates_with_elytra"
+    },
+    {
+      "item": "teamlife:end_core"
+    },
+    {
+      "item": "teamlife:nether_core"
+    },
+    {
+      "item": "teamlife:overworld_core"
+    },
+    {
+      "item": "teamlife:team_inventory_pouch"
+    },
+    {
+      "item": "teamlife:team_heart"
+    },
+    {
+      "item": "teamlife:personal_beacon"
     }
   ],
   "result": {

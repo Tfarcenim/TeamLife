@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "item": "minecraft:stone_slab"
+    },
+    "b": {
+      "item": "minecraft:lodestone"
+    }
+  },
+  "pattern": [
+    "aaa",
+    " b ",
+    " a "
+  ],
+  "result": {
+    "count": 1,
+    "id": "teamlife:pedestal"
+  }
+}

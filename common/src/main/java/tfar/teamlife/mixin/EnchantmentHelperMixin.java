@@ -1,6 +1,7 @@
 package tfar.teamlife.mixin;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,4 +20,14 @@ public class EnchantmentHelperMixin {
             cir.setReturnValue(level + 2);
         }
     }
+
+    @Inject(method = "getItemEnchantmentLevel",at = @At("RETURN"),cancellable = true)
+    private static void modifyLevel2(Enchantment enchantment, ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int level = cir.getReturnValue();
+        if (TeamLife.boostItemEnchants(enchantment,level)) {
+            cir.setReturnValue(level + 2);
+        }
+    }
+
+
 }

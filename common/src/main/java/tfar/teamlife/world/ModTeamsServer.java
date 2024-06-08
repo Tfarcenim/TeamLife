@@ -125,6 +125,16 @@ public class ModTeamsServer extends SavedData {
         setDirty();
     }
 
+    public void setMaxHealth(ModTeam modTeam, float amount) {
+        modTeam.maxHealth = amount;
+        updateTeam(modTeam);
+        setDirty();
+    }
+
+    public void refillMaxHealth(ModTeam modTeam) {
+        adjustHealth(modTeam, modTeam.maxHealth);
+    }
+
     @Nullable
     public static ModTeamsServer getInstance(ServerLevel serverLevel) {
         return serverLevel.getDataStorage()

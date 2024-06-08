@@ -1,6 +1,7 @@
 package tfar.teamlife;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
@@ -39,6 +40,10 @@ public class TeamLifeCommands {
                 .then(Commands.literal("rename_team").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
                         .then(Commands.argument("new_name", StringArgumentType.word())
                                 .executes(TeamLifeCommands::renameTeam))))
+
+                .then(Commands.literal("set_max_health").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
+                        .then(Commands.argument("max_health", FloatArgumentType.floatArg(0))
+                                .executes(TeamLifeCommands::setTeamMaxHealth))))
         );
     }
 
@@ -100,13 +105,13 @@ public class TeamLifeCommands {
         ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(commandSourceStack.getServer());
 
         if (modTeamsServer != null) {
-            String nationString = StringArgumentType.getString(commandContext, "team");
+            String teamString = StringArgumentType.getString(commandContext, "team");
             String name = StringArgumentType.getString(commandContext, "new_name");
 
-            ModTeam modTeam = modTeamsServer.findTeam(nationString);
+            ModTeam modTeam = modTeamsServer.findTeam(teamString);
 
             if (modTeam == null) {
-                commandSourceStack.sendFailure(Component.literal("Team with name " + nationString + " doesn't exist"));
+                commandSourceStack.sendFailure(Component.literal("Team with name " + teamString + " doesn't exist"));
                 return 0;
             }
 
@@ -114,6 +119,30 @@ public class TeamLifeCommands {
             modTeam.name = name;
             modTeamsServer.setDirty();
             commandSourceStack.sendSuccess(() -> Component.literal("Renamed team " + oldName + " to " + name), true);
+            return 1;
+        }
+        return 0;
+    }
+
+    private static int setTeamMaxHealth(CommandContext<CommandSourceStack> commandContext) {
+        CommandSourceStack commandSourceStack = commandContext.getSource();
+
+        ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(commandSourceStack.getServer());
+
+        if (modTeamsServer != null) {
+            String teamString = StringArgumentType.getString(commandContext, "team");
+            float maxHealth = FloatArgumentType.getFloat(commandContext, "max_health");
+
+            ModTeam modTeam = modTeamsServer.findTeam(teamString);
+
+            if (modTeam == null) {
+                commandSourceStack.sendFailure(Component.literal("Team with name " + teamString + " doesn't exist"));
+                return 0;
+            }
+
+            modTeamsServer.setMaxHealth(modTeam,maxHealth);
+
+            commandSourceStack.sendSuccess(() -> Component.literal("Set max health of team " + teamString + " to " + maxHealth), true);
             return 1;
         }
         return 0;

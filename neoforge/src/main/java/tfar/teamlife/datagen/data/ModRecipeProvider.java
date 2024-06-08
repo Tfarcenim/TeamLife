@@ -3,11 +3,13 @@ package tfar.teamlife.datagen.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import tfar.teamlife.init.ModItems;
+import tfar.teamlife.init.ModTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -66,16 +68,26 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(pWriter);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.OVERWORLD_CORE)
-                .define('a', ModItems.HEALTH_TOTEM).define('b',Items.DIAMOND_BLOCK)
+                .define('a', Items.STONE).define('b',Items.DIAMOND_BLOCK)
                 .define('t',Items.GOLDEN_APPLE).define('r',Blocks.MOSS_BLOCK)
                 .pattern("rbr")
                 .pattern("btb")
                 .pattern("aba")
-                .unlockedBy(getHasName(ModItems.HEALTH_TOTEM),has(ModItems.HEALTH_TOTEM))
+                .unlockedBy(getHasName(Items.DIAMOND_BLOCK),has(Items.DIAMOND_BLOCK))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PEDESTAL)
+                .define('a', Items.STONE_SLAB).define('b',Items.LODESTONE)
+                .pattern("aaa")
+                .pattern(" b ")
+                .pattern(" a ")
+                .unlockedBy(getHasName(Items.LODESTONE),has(Items.LODESTONE))
                 .save(pWriter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT,ModItems.PEARL_OF_LIFE)
-                .requires(ModItems.PERSONAL_HEART)
+                .requires(ModItems.ENCHANTMENT_TOME).requires(ModItems.PERSONAL_HEART).requires(ModTags.CHESTPLATES_WITH_ELYTRA)
+                .requires(ModItems.END_CORE).requires(ModItems.NETHER_CORE).requires(ModItems.OVERWORLD_CORE)
+                .requires(ModItems.TEAM_INVENTORY_POUCH).requires(ModItems.TEAM_HEART).requires(ModItems.PERSONAL_BEACON)
                 .unlockedBy(getHasName(ModItems.PERSONAL_HEART),has(ModItems.PERSONAL_HEART))
                 .save(pWriter);
 
@@ -89,7 +101,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     public static void elytraSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.ELYTRA), Ingredient.of(ingredientItem),
-                Ingredient.of(Items.IRON_NUGGET), category, resultItem).unlocks("has_elytra", has(Items.ELYTRA)).save(recipeOutput, getItemName(resultItem) + "_smithing");
+                Ingredient.of(Items.CHAIN), category, resultItem).unlocks("has_elytra", has(Items.ELYTRA)).save(recipeOutput, getItemName(resultItem) + "_smithing");
     }
 
 }

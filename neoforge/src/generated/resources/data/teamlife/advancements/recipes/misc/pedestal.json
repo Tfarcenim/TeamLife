@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_diamond_block": {
+    "has_lodestone": {
       "conditions": {
         "items": [
           {
-            "items": "minecraft:diamond_block"
+            "items": "minecraft:lodestone"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "teamlife:overworld_core"
+        "recipe": "teamlife:pedestal"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_diamond_block"
+      "has_lodestone"
     ]
   ],
   "rewards": {
     "recipes": [
-      "teamlife:overworld_core"
+      "teamlife:pedestal"
     ]
   }
 }

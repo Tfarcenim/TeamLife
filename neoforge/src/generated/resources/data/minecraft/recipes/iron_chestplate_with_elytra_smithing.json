@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smithing_transform",
   "addition": {
-    "item": "minecraft:iron_nugget"
+    "item": "minecraft:chain"
   },
   "base": {
     "item": "minecraft:iron_chestplate"

@@ -7,10 +7,12 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import tfar.teamlife.TeamLife;
 import tfar.teamlife.datagen.data.ModBlockTagsProvider;
+import tfar.teamlife.datagen.data.ModItemTagsProvider;
 import tfar.teamlife.datagen.data.ModLootTableProvider;
 import tfar.teamlife.datagen.data.ModRecipeProvider;
 
@@ -28,7 +30,9 @@ public class Datagen {
         dataGenerator.addProvider(client,new ModModelProvider(packOutput));
         dataGenerator.addProvider(client,new ModLangProvider(packOutput));
         dataGenerator.addProvider(true, ModLootTableProvider.create(packOutput,lookupProvider));
-        dataGenerator.addProvider(true,new ModBlockTagsProvider(packOutput,lookupProvider,existingFileHelper));
+        BlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(packOutput,lookupProvider,existingFileHelper);
+        dataGenerator.addProvider(true,blockTagsProvider);
+        dataGenerator.addProvider(true,new ModItemTagsProvider(packOutput,lookupProvider,blockTagsProvider.contentsGetter(),existingFileHelper));
         dataGenerator.addProvider(true,new ModRecipeProvider(packOutput,lookupProvider));
 
     }
