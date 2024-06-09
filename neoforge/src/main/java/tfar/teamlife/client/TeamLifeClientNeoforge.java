@@ -1,7 +1,11 @@
 package tfar.teamlife.client;
 
+import net.minecraft.client.renderer.entity.ArmorStandRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.ClientHooks;
@@ -42,6 +46,8 @@ public class TeamLifeClientNeoforge {
             PlayerRenderer playerRenderer = event.getSkin(model);
             playerRenderer.addLayer(new ChestplateElytraLayer<>(playerRenderer,event.getEntityModels()));
         }
+        ArmorStandRenderer renderer = event.getRenderer(EntityType.ARMOR_STAND);
+        renderer.addLayer(new ChestplateElytraLayer<>(renderer,event.getEntityModels()));
     }
 
     static void logout(ClientPlayerNetworkEvent.LoggingOut event) {

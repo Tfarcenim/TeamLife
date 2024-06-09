@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -100,17 +101,21 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(getHasName(ModItems.PERSONAL_HEART),has(ModItems.PERSONAL_HEART))
                 .save(pWriter);
 
-        elytraSmithing(pWriter,Items.LEATHER_CHESTPLATE,RecipeCategory.COMBAT,ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA);
-        elytraSmithing(pWriter,Items.CHAINMAIL_CHESTPLATE,RecipeCategory.COMBAT,ModItems.CHAINMAIL_CHESTPLATE_WITH_ELYTRA);
-        elytraSmithing(pWriter,Items.GOLDEN_CHESTPLATE,RecipeCategory.COMBAT,ModItems.GOLDEN_CHESTPLATE_WITH_ELYTRA);
-        elytraSmithing(pWriter,Items.IRON_CHESTPLATE,RecipeCategory.COMBAT,ModItems.IRON_CHESTPLATE_WITH_ELYTRA);
-        elytraSmithing(pWriter,Items.DIAMOND_CHESTPLATE,RecipeCategory.COMBAT,ModItems.DIAMOND_CHESTPLATE_WITH_ELYTRA);
-        elytraSmithing(pWriter,Items.NETHERITE_CHESTPLATE,RecipeCategory.COMBAT,ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.LEATHER_CHESTPLATE,repair((ArmorItem)Items.LEATHER_CHESTPLATE),RecipeCategory.COMBAT,ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.CHAINMAIL_CHESTPLATE,Ingredient.of(Items.CHAIN),RecipeCategory.COMBAT,ModItems.CHAINMAIL_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.GOLDEN_CHESTPLATE,repair((ArmorItem)Items.GOLDEN_CHESTPLATE),RecipeCategory.COMBAT,ModItems.GOLDEN_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.IRON_CHESTPLATE,repair((ArmorItem)Items.IRON_CHESTPLATE),RecipeCategory.COMBAT,ModItems.IRON_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.DIAMOND_CHESTPLATE,repair((ArmorItem)Items.DIAMOND_CHESTPLATE),RecipeCategory.COMBAT,ModItems.DIAMOND_CHESTPLATE_WITH_ELYTRA);
+        elytraSmithing(pWriter,Items.NETHERITE_CHESTPLATE,repair((ArmorItem)Items.NETHERITE_CHESTPLATE),RecipeCategory.COMBAT,ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
     }
 
-    public static void elytraSmithing(RecipeOutput recipeOutput, Item ingredientItem, RecipeCategory category, Item resultItem) {
+    Ingredient repair(ArmorItem armorItem) {
+        return armorItem.getMaterial().value().repairIngredient().get();
+    }
+
+    public static void elytraSmithing(RecipeOutput recipeOutput, Item ingredientItem,Ingredient ingredientItem2, RecipeCategory category, Item resultItem) {
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.ELYTRA), Ingredient.of(ingredientItem),
-                Ingredient.of(Items.CHAIN), category, resultItem).unlocks("has_elytra", has(Items.ELYTRA)).save(recipeOutput, getItemName(resultItem) + "_smithing");
+                ingredientItem2, category, resultItem).unlocks("has_elytra", has(Items.ELYTRA)).save(recipeOutput, getItemName(resultItem) + "_smithing");
     }
 
 }
