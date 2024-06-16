@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "teamlife:item/enchantment_tome_artifact"
+    "layer0": "teamlife:item/team_regeneration_artifact"
   }
 }

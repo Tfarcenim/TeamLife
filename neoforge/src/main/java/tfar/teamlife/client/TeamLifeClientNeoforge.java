@@ -11,6 +11,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
 import net.neoforged.neoforge.common.NeoForge;
@@ -25,7 +26,12 @@ public class TeamLifeClientNeoforge {
         bus.addListener(TeamLifeClientNeoforge::setup);
         bus.addListener(TeamLifeClientNeoforge::layers);
         bus.addListener(TeamLifeClientNeoforge::renderers);
+        bus.addListener(TeamLifeClientNeoforge::itemColors);
         NeoForge.EVENT_BUS.addListener(TeamLifeClientNeoforge::logout);
+    }
+
+    static void itemColors(RegisterColorHandlersEvent.Item event) {
+        TeamLifeClient.handleItemColors(event.getItemColors());
     }
 
     static void renderers(EntityRenderersEvent.RegisterRenderers event) {

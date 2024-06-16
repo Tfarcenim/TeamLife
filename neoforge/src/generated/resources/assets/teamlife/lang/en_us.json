@@ -3,8 +3,6 @@
   "item.teamlife.chainmail_chestplate_with_elytra": "Chainmail Chestplate With Elytra",
   "item.teamlife.chestplate_with_elytra_artifact": "Chestplate With Elytra Artifact",
   "item.teamlife.diamond_chestplate_with_elytra": "Diamond Chestplate With Elytra",
-  "item.teamlife.enchantment_tome": "Enchantment Tome",
-  "item.teamlife.enchantment_tome_artifact": "Enchantment Tome Artifact",
   "item.teamlife.end_core": "End Core",
   "item.teamlife.golden_chestplate_with_elytra": "Golden Chestplate With Elytra",
   "item.teamlife.health_totem": "Health Totem",
@@ -21,5 +19,7 @@
   "item.teamlife.personal_heart": "Personal Heart",
   "item.teamlife.team_heart": "Team Heart",
   "item.teamlife.team_inventory_pouch": "Team Inventory Pouch",
-  "item.teamlife.team_inventory_pouch_artifact": "Team Inventory Pouch Artifact"
+  "item.teamlife.team_inventory_pouch_artifact": "Team Inventory Pouch Artifact",
+  "item.teamlife.team_regeneration": "Team Regeneration",
+  "item.teamlife.team_regeneration_artifact": "Team Regeneration Artifact"
 }

@@ -3,14 +3,17 @@ package tfar.teamlife.client;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.DyedItemColor;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModItems;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
 
@@ -31,6 +34,10 @@ public class TeamLifeClient {
 
     private static void registerKeybind(KeyMapping keyMapping) {
         Minecraft.getInstance().options.keyMappings = ArrayUtils.add(Minecraft.getInstance().options.keyMappings, keyMapping);
+    }
+
+    public static void handleItemColors(ItemColors itemColors) {
+      //  itemColors.register((stack, i) -> i > 0 ? -1 : DyedItemColor.getOrDefault(stack, 0xffa06540), ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA);
     }
 
     public static void setTeam(ModTeam team) {

@@ -156,14 +156,14 @@ public class TeamLife {
         if (originalLevel <= 0) return false;
         if (!allowBoosting(enchantment)) return false;
         if (living instanceof Player player) {
-            if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME_ARTIFACT)) return false;
-            if (!canUseArtifact(getTeamSideSafe(player),ModItems.ENCHANTMENT_TOME)) return false;
+            if (!canUseArtifact(getTeamSideSafe(player),ModItems.TEAM_REGENERATION_ARTIFACT)) return false;
+            if (!canUseArtifact(getTeamSideSafe(player),ModItems.TEAM_REGENERATION)) return false;
 
-            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
+            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION) > 0) {
                 return true;
             }
 
-            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME_ARTIFACT) > 0) {
+            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION_ARTIFACT) > 0) {
                 return true;
             }
 
@@ -180,14 +180,14 @@ public class TeamLife {
         if (!allowBoosting(enchantment)) return false;
         if (playerThreadLocal.get() != null) {
             Player player = playerThreadLocal.get();
-            if (!canPlayerUseArtifact(player,ModItems.ENCHANTMENT_TOME_ARTIFACT)) return false;
-            if (!canPlayerUseArtifact(player,ModItems.ENCHANTMENT_TOME)) return false;
+            if (!canPlayerUseArtifact(player,ModItems.TEAM_REGENERATION_ARTIFACT)) return false;
+            if (!canPlayerUseArtifact(player,ModItems.TEAM_REGENERATION)) return false;
 
-            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME) > 0) {
+            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION) > 0) {
                 return true;
             }
 
-            if (player.getInventory().countItem(ModItems.ENCHANTMENT_TOME_ARTIFACT) > 0) {
+            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION_ARTIFACT) > 0) {
                 return true;
             }
 

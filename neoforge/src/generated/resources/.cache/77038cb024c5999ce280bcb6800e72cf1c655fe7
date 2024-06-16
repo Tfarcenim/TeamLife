@@ -1,10 +1,8 @@
-// 1.20.6	2024-06-07T21:28:33.0397639	Model Definitions
+// 1.20.6	2024-06-16T01:11:05.7684132	Model Definitions
 f079264d9eaa4d7b295597989c290d6f4ff59ae2 assets/teamlife/blockstates/pedestal.json
 290575a4a9ed9b10ec47453515a124540fb4cbf4 assets/teamlife/models/item/chainmail_chestplate_with_elytra.json
 87268cbd8185bea4cde29f35b1bb2166bb250b8a assets/teamlife/models/item/chestplate_with_elytra_artifact.json
 c7854f9c67fd0ea3c77a316b03b4249bbea1f638 assets/teamlife/models/item/diamond_chestplate_with_elytra.json
-8b081037f72167e637057158de184f0345137657 assets/teamlife/models/item/enchantment_tome.json
-f517e2affdce83c00b529510f61060d7679ef870 assets/teamlife/models/item/enchantment_tome_artifact.json
 de544c91128b1fdec527bb68aafb38939e564a79 assets/teamlife/models/item/end_core.json
 17d8ed5d551e1556c57c713070de3efccbb54ed4 assets/teamlife/models/item/golden_chestplate_with_elytra.json
 0c0fa05a318a38443e82ce6c10cefcee05088fe7 assets/teamlife/models/item/health_totem.json
@@ -23,3 +21,5 @@ becc6c1b38e9c566dedf0d882120b107d7e0410d assets/teamlife/models/item/personal_be
 f11694cbc359e7fa66e1264b5ddd979ad0d4d000 assets/teamlife/models/item/team_heart.json
 c110934a0a541227a269a945d26752b618d32b30 assets/teamlife/models/item/team_inventory_pouch.json
 3cae5dc47e08f95afa4297297227e31cef77288c assets/teamlife/models/item/team_inventory_pouch_artifact.json
+f2431ffe4cb29f08c16361d90c32a03b3ebe3afc assets/teamlife/models/item/team_regeneration.json
+de715a711f43c6b06a7a27f70b6e955b52985a8b assets/teamlife/models/item/team_regeneration_artifact.json

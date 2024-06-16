@@ -143,17 +143,17 @@ public class PersonalBeaconItem extends Item implements Artifact {
                 boolean same = Objects.equals(primary, secondary);
 
                 if (same) {
-                    living.addEffect(new MobEffectInstance(primary, 100, 1));
+                    living.addEffect(new MobEffectInstance(primary, 100, 1,true,true));
                     return;
                 }
 
                 if (primary != null) {
-                    living.addEffect(new MobEffectInstance(primary, 100, 0));
+                    living.addEffect(new MobEffectInstance(primary, 100, 0,true,true));
                 }
 
 
                 if (secondary != null) {
-                    living.addEffect(new MobEffectInstance(secondary, 100, 0));
+                    living.addEffect(new MobEffectInstance(secondary, 100, 0,true,true));
                 }
             }
         }

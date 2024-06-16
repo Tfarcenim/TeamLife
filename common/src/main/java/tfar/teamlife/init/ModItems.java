@@ -16,11 +16,11 @@ public class ModItems {
     public static final Item OVERWORLD_CORE = new Item(new Item.Properties());
     public static final Item PEARL_OF_LIFE = new PearlOfLifeItem(new Item.Properties());
     public static final Item HEALTH_TOTEM = new Item(new Item.Properties());
-    public static final Item ENCHANTMENT_TOME = new Item(new Item.Properties());
+    public static final Item TEAM_REGENERATION = new EnchantmentTomeItem(new Item.Properties());
     public static final Item INFINITE_FIREWORK_ROCKET = new InfiniteFireworkRocketItem(new Item.Properties());
 
     public static final Item INFINITE_FIREWORK_ROCKET_ARTIFACT = new InfiniteFireworkRocketItem(new Item.Properties());
-    public static final Item ENCHANTMENT_TOME_ARTIFACT = ArtifactItem.enchantedTome(new Item.Properties());
+    public static final Item TEAM_REGENERATION_ARTIFACT = ArtifactItem.enchantedTome(new Item.Properties());
     public static final Item PERSONAL_BEACON_ARTIFACT = new PersonalBeaconItem(new Item.Properties());
     public static final Item TEAM_INVENTORY_POUCH_ARTIFACT = new TeamInventoryItem(new Item.Properties());
 

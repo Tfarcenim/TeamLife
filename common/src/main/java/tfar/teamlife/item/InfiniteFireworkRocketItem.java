@@ -25,6 +25,7 @@ public class InfiniteFireworkRocketItem extends FireworkRocketItem implements Ar
         super($$0);
     }
 
+    @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();
         Player player = context.getPlayer();
@@ -42,6 +43,7 @@ public class InfiniteFireworkRocketItem extends FireworkRocketItem implements Ar
         return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
+    @Override
     public InteractionResultHolder<ItemStack> use(Level $$0, Player player, InteractionHand hand) {
         if (player.isFallFlying()) {
             ItemStack stack = player.getItemInHand(hand);

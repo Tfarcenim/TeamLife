@@ -3,6 +3,7 @@ package tfar.teamlife.datagen.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -22,5 +23,6 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider p_256380_) {
         tag(ModTags.CHESTPLATES_WITH_ELYTRA).add(ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA,ModItems.CHAINMAIL_CHESTPLATE_WITH_ELYTRA,ModItems.GOLDEN_CHESTPLATE_WITH_ELYTRA,
                 ModItems.IRON_CHESTPLATE_WITH_ELYTRA,ModItems.DIAMOND_CHESTPLATE_WITH_ELYTRA,ModItems.NETHERITE_CHESTPLATE_WITH_ELYTRA);
+        tag(ItemTags.DYEABLE).add(ModItems.LEATHER_CHESTPLATE_WITH_ELYTRA);
     }
 }

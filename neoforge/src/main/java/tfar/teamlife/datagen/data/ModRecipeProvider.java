@@ -3,7 +3,6 @@ package tfar.teamlife.datagen.data;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -95,7 +94,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(pWriter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT,ModItems.PEARL_OF_LIFE)
-                .requires(ModItems.ENCHANTMENT_TOME).requires(ModItems.PERSONAL_HEART).requires(ModTags.CHESTPLATES_WITH_ELYTRA)
+                .requires(ModItems.TEAM_REGENERATION).requires(ModItems.PERSONAL_HEART).requires(ModTags.CHESTPLATES_WITH_ELYTRA)
                 .requires(ModItems.END_CORE).requires(ModItems.NETHER_CORE).requires(ModItems.OVERWORLD_CORE)
                 .requires(ModItems.TEAM_INVENTORY_POUCH).requires(ModItems.TEAM_HEART).requires(ModItems.PERSONAL_BEACON)
                 .unlockedBy(getHasName(ModItems.PERSONAL_HEART),has(ModItems.PERSONAL_HEART))

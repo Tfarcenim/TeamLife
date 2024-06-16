@@ -3,7 +3,7 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "teamlife:enchantment_tome"
+      "item": "teamlife:team_regeneration"
     },
     {
       "item": "teamlife:personal_heart"
