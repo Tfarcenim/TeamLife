@@ -14,8 +14,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import org.jetbrains.annotations.Nullable;
@@ -54,9 +52,15 @@ public class TeamLife {
         AttributeInstance attributeInstanceNew = newPlayer.getAttribute(Attributes.MAX_HEALTH);
         if (attributeInstanceOld != null && attributeInstanceNew != null) {
             AttributeModifier attributeModifierOld = attributeInstanceOld.getModifier(PersonalHeartItem.uuid);
+            AttributeModifier attributeModifierOld2 = attributeInstanceOld.getModifier(ModTeamsServer.uuid);
             if (attributeModifierOld != null) {
                 attributeInstanceNew.addPermanentModifier(attributeModifierOld);
             }
+
+            if (attributeModifierOld2 != null) {
+                attributeInstanceNew.addPermanentModifier(attributeModifierOld2);
+            }
+
         }
 
         if (wasDeath) {
@@ -135,6 +139,7 @@ public class TeamLife {
         ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(player.server);
         if (modTeamsServer != null) {
             modTeamsServer.updateClient(player);
+            modTeamsServer.modifyDefaultHealth(player);
         }
     }
 
@@ -150,49 +155,6 @@ public class TeamLife {
             }
             return null;
         }
-    }
-
-    public static boolean boostEnchants(Enchantment enchantment,LivingEntity living,int originalLevel) {
-        if (originalLevel <= 0) return false;
-        if (!allowBoosting(enchantment)) return false;
-        if (living instanceof Player player) {
-            if (!canUseArtifact(getTeamSideSafe(player),ModItems.TEAM_REGENERATION_ARTIFACT)) return false;
-            if (!canUseArtifact(getTeamSideSafe(player),ModItems.TEAM_REGENERATION)) return false;
-
-            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION) > 0) {
-                return true;
-            }
-
-            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION_ARTIFACT) > 0) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
-    static boolean allowBoosting(Enchantment enchantment) {
-        return enchantment.getMaxLevel() > 1 && enchantment != Enchantments.LURE;
-    }
-
-    public static boolean boostItemEnchants(Enchantment enchantment,int originalLevel) {
-        if (originalLevel <= 0) return false;
-        if (!allowBoosting(enchantment)) return false;
-        if (playerThreadLocal.get() != null) {
-            Player player = playerThreadLocal.get();
-            if (!canPlayerUseArtifact(player,ModItems.TEAM_REGENERATION_ARTIFACT)) return false;
-            if (!canPlayerUseArtifact(player,ModItems.TEAM_REGENERATION)) return false;
-
-            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION) > 0) {
-                return true;
-            }
-
-            if (player.getInventory().countItem(ModItems.TEAM_REGENERATION_ARTIFACT) > 0) {
-                return true;
-            }
-
-        }
-        return false;
     }
 
     public static boolean canUseArtifact(@Nullable ModTeam modTeam,Item artifactItem) {

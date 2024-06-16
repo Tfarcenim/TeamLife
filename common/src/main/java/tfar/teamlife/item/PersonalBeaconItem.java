@@ -95,6 +95,11 @@ public class PersonalBeaconItem extends Item implements Artifact {
         return InteractionResultHolder.sidedSuccess(stack,level.isClientSide);
     }
 
+    public Item getCraftingRemainingItem() {
+        return this == ModItems.PERSONAL_BEACON_ARTIFACT ? this : super.getCraftingRemainingItem();
+    }
+
+
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag $$3) {
         super.appendHoverText(stack, context, tooltip, $$3);

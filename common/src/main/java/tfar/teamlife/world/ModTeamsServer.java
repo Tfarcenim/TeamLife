@@ -9,6 +9,9 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.saveddata.SavedData;
 import org.jetbrains.annotations.Nullable;
 import tfar.teamlife.TeamLife;
@@ -22,6 +25,8 @@ public class ModTeamsServer extends SavedData {
 
     private final List<ModTeam> modTeamList = new ArrayList<>();
     private final ServerLevel serverLevel;
+
+    AttributeModifier modifyHealth;
 
     public ModTeamsServer(ServerLevel serverLevel) {
         this.serverLevel = serverLevel;
@@ -38,6 +43,28 @@ public class ModTeamsServer extends SavedData {
             if (modTeam.isMember(player)) return modTeam;
         }
         return null;
+    }
+
+    public void setDefaultHealthModifierAndSync(double mod) {
+
+        if (modifyHealth!= null) {
+            serverLevel.getServer().getPlayerList().getPlayers().forEach(player -> {
+                player.getAttribute(Attributes.MAX_HEALTH).removeModifier(modifyHealth.id());
+            });
+        };
+
+        if (mod != 0) {
+            modifyHealth = new AttributeModifier(uuid,"default_health_modifier",mod, AttributeModifier.Operation.ADD_VALUE);
+            serverLevel.getServer().getPlayerList().getPlayers().forEach(player -> {
+                player.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(modifyHealth);
+            });
+        }
+
+        else {
+            modifyHealth = null;
+        }
+
+        setDirty();
     }
 
     @Nullable
@@ -81,6 +108,8 @@ public class ModTeamsServer extends SavedData {
         return modTeamList.stream().filter(modTeam -> modTeam.name.equals(name)).findFirst().orElse(null);
     }
 
+    public static final UUID uuid = UUID.fromString("6b996527-1731-4340-94f0-c7076ad4159f");
+
     public void load(CompoundTag tag) {
         modTeamList.clear();
         ListTag listTag = tag.getList(TeamLife.MOD_ID, Tag.TAG_COMPOUND);
@@ -89,11 +118,26 @@ public class ModTeamsServer extends SavedData {
             ModTeam modTeam = ModTeam.loadStatic(compoundTag, serverLevel.registryAccess());
             modTeamList.add(modTeam);
         }
+        if (tag.contains("default_health_modifier")) {
+            modifyHealth = new AttributeModifier(uuid,"default_health_modifier",tag.getDouble("default_health_modifier"), AttributeModifier.Operation.ADD_VALUE);
+        }
     }
 
     public void updateClient(ServerPlayer player) {
         ModTeam modTeam = findTeam(player);
         updateClient(player, modTeam);
+    }
+
+    public void modifyDefaultHealth(Player player) {
+        AttributeModifier modifier = player.getAttribute(Attributes.MAX_HEALTH).getModifier(uuid);
+        if (modifyHealth != null) {
+            if (modifier.amount() != modifyHealth.amount()) {
+            player.getAttribute(Attributes.MAX_HEALTH).removeModifier(uuid);
+            player.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(modifyHealth);
+            }
+        } else {
+            player.getAttribute(Attributes.MAX_HEALTH).removeModifier(uuid);
+        }
     }
 
     public void updateClient(ServerPlayer player, @Nullable ModTeam team) {
@@ -173,6 +217,11 @@ public class ModTeamsServer extends SavedData {
             listTag.add(modTeam.save());
         }
         compoundTag.put(TeamLife.MOD_ID, listTag);
+
+        if (modifyHealth != null) {
+            compoundTag.putDouble("default_health_modifier",modifyHealth.amount());
+        }
+
         return compoundTag;
     }
 

@@ -1,6 +1,7 @@
 package tfar.teamlife;
 
 import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.DoubleArgumentType;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -26,6 +27,9 @@ public class TeamLifeCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal(TeamLife.MOD_ID)
+                        .then(Commands.literal("modify_default_player_health").then(Commands.argument("health",DoubleArgumentType.doubleArg(
+                                -19.99,1000
+                        )).executes(TeamLifeCommands::setDefaultPlayerHealth)))
                 .then(Commands.literal("add").then(Commands.argument("team", StringArgumentType.word())
                         .executes(TeamLifeCommands::createTeam)))
                 .then(Commands.literal("remove").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
@@ -55,6 +59,15 @@ public class TeamLifeCommands {
         }
         return SharedSuggestionProvider.suggest(collection, suggestionsBuilder);
     };
+
+    private static int setDefaultPlayerHealth(CommandContext<CommandSourceStack> context) {
+        double modifier = DoubleArgumentType.getDouble(context,"health");
+        CommandSourceStack commandSourceStack = context.getSource();
+        ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
+        modTeamsServer.setDefaultHealthModifierAndSync(modifier);
+        commandSourceStack.sendSuccess(() -> Component.literal("Default health modifier " + modifier + " applied to all players"),false);
+        return 1;
+    }
 
     private static int createTeam(CommandContext<CommandSourceStack> context) {
         String team = StringArgumentType.getString(context,"team");

@@ -47,7 +47,7 @@ public class TeamLifeClient {
 
     public static void renderGuiLayer(GuiGraphics guiGraphics,float deltaTick) {
         Gui gui = Minecraft.getInstance().gui;
-        if (team != null) {
+        if (team != null && Minecraft.getInstance().gameMode.canHurtPlayer()) {
                 Entity entity = Minecraft.getInstance().cameraEntity;
                 if (entity instanceof Player player) {
                     int health = Mth.ceil(team.health);
@@ -55,10 +55,10 @@ public class TeamLifeClient {
 
                     int x = guiGraphics.guiWidth() / 2 - 91;
                     int y = guiGraphics.guiHeight() - Services.PLATFORM.guiLeft(gui);
-                    float maxHealth = (float) team.maxHealth;
-                    int l1 = Mth.ceil((maxHealth) / 2.0F / 10.0F);
-                    int i2 = Math.max(10 - (l1 - 2), 3);
-                    Services.PLATFORM.setGuiLeft(gui,Services.PLATFORM.guiLeft(gui) + (l1 - 1) * i2 + 10);
+                    float maxHealth = team.maxHealth;
+                    int rows = Mth.ceil(maxHealth / 20.0F);
+                    int i2 = Math.max(10 - (rows - 2), 3) + 1;
+                    Services.PLATFORM.setGuiLeft(gui,Services.PLATFORM.guiLeft(gui) + rows * 10);
                     int k2 = -1;
                     Minecraft.getInstance().getProfiler().push("health");
                     renderTeamHearts(gui,guiGraphics, player, x, y, i2, k2, maxHealth, health, flag);

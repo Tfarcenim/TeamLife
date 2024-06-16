@@ -94,9 +94,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 .save(pWriter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT,ModItems.PEARL_OF_LIFE)
-                .requires(ModItems.TEAM_REGENERATION).requires(ModItems.PERSONAL_HEART).requires(ModTags.CHESTPLATES_WITH_ELYTRA)
+                .requires(ModItems.TEAM_REGENERATION_ARTIFACT).requires(ModItems.PERSONAL_HEART).requires(ModItems.CHESTPLATE_WITH_ELYTRA_ARTIFACT)
                 .requires(ModItems.END_CORE).requires(ModItems.NETHER_CORE).requires(ModItems.OVERWORLD_CORE)
-                .requires(ModItems.TEAM_INVENTORY_POUCH).requires(ModItems.TEAM_HEART).requires(ModItems.PERSONAL_BEACON)
+                .requires(ModItems.TEAM_INVENTORY_POUCH_ARTIFACT).requires(ModItems.TEAM_HEART).requires(ModItems.PERSONAL_BEACON_ARTIFACT)
                 .unlockedBy(getHasName(ModItems.PERSONAL_HEART),has(ModItems.PERSONAL_HEART))
                 .save(pWriter);
 

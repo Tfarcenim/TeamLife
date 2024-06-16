@@ -1,12 +1,10 @@
 package tfar.teamlife.item;
 
 import net.minecraft.world.item.Item;
+import tfar.teamlife.init.ModItems;
 
 import java.util.Set;
 import java.util.function.Supplier;
-
-import static tfar.teamlife.init.ModItems.TEAM_REGENERATION;
-import static tfar.teamlife.init.ModItems.TEAM_REGENERATION_ARTIFACT;
 
 public class ArtifactItem extends Item implements Artifact {
     private final Supplier<Set<Item>> usable;
@@ -17,8 +15,12 @@ public class ArtifactItem extends Item implements Artifact {
     }
 
     public static ArtifactItem enchantedTome(Properties properties) {
-        ArtifactItem artifactItem = new ArtifactItem(properties, () -> Set.of(TEAM_REGENERATION, TEAM_REGENERATION_ARTIFACT));
+        ArtifactItem artifactItem = new ArtifactItem(properties, () -> Set.of(ModItems.TEAM_REGENERATION, ModItems.TEAM_REGENERATION_ARTIFACT));
         return artifactItem;
+    }
+
+    public Item getCraftingRemainingItem() {
+        return this == ModItems.TEAM_REGENERATION_ARTIFACT || this == ModItems.CHESTPLATE_WITH_ELYTRA_ARTIFACT ? this : super.getCraftingRemainingItem();
     }
 
     @Override

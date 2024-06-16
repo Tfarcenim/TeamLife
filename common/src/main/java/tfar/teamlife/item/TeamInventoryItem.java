@@ -45,6 +45,11 @@ public class TeamInventoryItem extends Item implements Artifact {
         return InteractionResultHolder.sidedSuccess(stack,level.isClientSide);
     }
 
+    public Item getCraftingRemainingItem() {
+        return this == ModItems.TEAM_INVENTORY_POUCH_ARTIFACT ? this : super.getCraftingRemainingItem();
+    }
+
+
     @Override
     public Set<Item> usable() {
         return this == ModItems.TEAM_INVENTORY_POUCH_ARTIFACT ? Set.of(ModItems.TEAM_INVENTORY_POUCH,this) : Set.of();
