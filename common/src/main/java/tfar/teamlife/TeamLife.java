@@ -165,8 +165,6 @@ public class TeamLife {
         return canUseArtifact(getTeamSideSafe(player),item);
     }
 
-    public static ThreadLocal<Player> playerThreadLocal = ThreadLocal.withInitial(() -> null);
-
 
     public static ResourceLocation id(String path) {
         return new ResourceLocation(MOD_ID,path);

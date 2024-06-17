@@ -14,7 +14,7 @@ public class PacketHandler {
 
     public static void registerPackets() {
         //Services.PLATFORM.registerServerPacket(C2SKeyActionPacket.class, C2SKeyActionPacket::new);
-        if (Services.PLATFORM.getPlatformName().equals("Forge") || MixinEnvironment.getCurrentEnvironment().getSide() == MixinEnvironment.Side.CLIENT) {
+        if (!Services.PLATFORM.getPlatformName().equals("Fabric") || MixinEnvironment.getCurrentEnvironment().getSide() == MixinEnvironment.Side.CLIENT) {
             registerClientPackets();
         }
     }
