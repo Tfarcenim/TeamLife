@@ -1,5 +1,6 @@
 package tfar.teamlife.item;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -44,8 +45,12 @@ public class TeamHeartItem extends Item {
             if (modTeamsServer != null) {
                 ModTeam modTeam = modTeamsServer.findTeam((ServerPlayer) player);
                 if (modTeam != null) {
-                    modTeamsServer.adjustMaxHealth(modTeam,boost);
-                    worked = true;
+                    if (modTeam.maxHealth < 100) {
+                        modTeamsServer.adjustMaxHealth(modTeam, boost);
+                        worked = true;
+                    } else {
+                        ((ServerPlayer) player).sendSystemMessage(Component.literal("Team hearts at max"), true);
+                    }
                 }
             }
         } else {

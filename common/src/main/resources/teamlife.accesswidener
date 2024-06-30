@@ -14,3 +14,5 @@ accessible class net/minecraft/client/gui/screens/MenuScreens$ScreenConstructor
 accessible method net/minecraft/world/level/block/entity/BeaconBlockEntity filterEffect (Lnet/minecraft/core/Holder;)Lnet/minecraft/core/Holder;
 
 extendable method net/minecraft/world/item/Item getCraftingRemainingItem ()Lnet/minecraft/world/item/Item;
+
+accessible field net/minecraft/client/renderer/BlockEntityWithoutLevelRenderer tridentModel Lnet/minecraft/client/model/TridentModel;

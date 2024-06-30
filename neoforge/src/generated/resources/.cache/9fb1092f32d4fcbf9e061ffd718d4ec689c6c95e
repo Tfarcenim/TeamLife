@@ -1,4 +1,4 @@
-// 1.20.6	2024-06-16T01:11:05.7714139	Recipes
+// 1.20.6	2024-06-18T01:38:52.6362539	Recipes
 6605929e9a67c9799176c12ba2639bef8f88a384 data/minecraft/advancements/recipes/combat/chainmail_chestplate_with_elytra_smithing.json
 ec3b9533938723cdb6c5c32c31d45933fefbc9e4 data/minecraft/advancements/recipes/combat/diamond_chestplate_with_elytra_smithing.json
 caadc50029deabdc1895aab42da8d1bcc358e4fd data/minecraft/advancements/recipes/combat/golden_chestplate_with_elytra_smithing.json
@@ -15,6 +15,7 @@ b3842f735630cc97af104b2bbb5360e3e1581aa1 data/minecraft/recipes/leather_chestpla
 f9ec39361f46e227ad087581ecade94403b50381 data/teamlife/advancements/recipes/misc/end_core.json
 1b5cc1dcd083bc33d0d5384d679b90ff60d7eb82 data/teamlife/advancements/recipes/misc/health_totem.json
 8c42d0d4f410762c87882c9e58136cabe577d467 data/teamlife/advancements/recipes/misc/infinite_firework_rocket.json
+13a68d9e003e2c3f52d1876989e8056dd709bb9f data/teamlife/advancements/recipes/misc/infinite_firework_rocket_artifact.json
 f8c7a0ec0f3b425331840d66cbd0f9d17095556e data/teamlife/advancements/recipes/misc/nether_core.json
 3eba50bd9a93ee7d5b97440d943bdc0a494375d9 data/teamlife/advancements/recipes/misc/overworld_core.json
 d91eaf2f9467a7d8f2bee2fb85b90e9999122bab data/teamlife/advancements/recipes/misc/pedestal.json
@@ -23,9 +24,10 @@ d91eaf2f9467a7d8f2bee2fb85b90e9999122bab data/teamlife/advancements/recipes/misc
 f186e2fd0c421a7d27590effd5b6c6eff8678b35 data/teamlife/recipes/end_core.json
 ea205cd9084486ca8da7975df6730bdc9f9f33b0 data/teamlife/recipes/health_totem.json
 02e422b72bbbe587caf5e8a56d19f7e3892be178 data/teamlife/recipes/infinite_firework_rocket.json
+69fdcffa5b4b56e08bca849b0c5c8212739f3244 data/teamlife/recipes/infinite_firework_rocket_artifact.json
 faf9b83aa4c01b82de4671f9fc449f7f550802b9 data/teamlife/recipes/nether_core.json
 c507249725bf99bfd8e8a2f8c5128f433db3a2fc data/teamlife/recipes/overworld_core.json
-61bffd1d466699a9a2d9a6cea8b63b4c0cd0b157 data/teamlife/recipes/pearl_of_life.json
+b2f75f13ba2568fb1c0b49ec01fc8dbdb96e2b7b data/teamlife/recipes/pearl_of_life.json
 2d628c90b2de09cb8ed8ec70c047e2258d937c89 data/teamlife/recipes/pedestal.json
-32dfa36e7d1451ae632d046cfb4037b81baf9ea9 data/teamlife/recipes/personal_heart.json
+5e833a1a68e17e3f8ebd315df20f8110645bde67 data/teamlife/recipes/personal_heart.json
 d1cd5e4bb454c8ff591dc23427581d910a542dc5 data/teamlife/recipes/team_heart.json

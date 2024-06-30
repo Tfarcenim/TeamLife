@@ -61,8 +61,8 @@ public class PedestalBlock extends Block implements EntityBlock {
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity) {
             if (!level.isClientSide) {
-                Containers.dropItemStack(level,pos.getX(),pos.getY(),pos.getZ(),pedestalBlockEntity.item);
                 pedestalBlockEntity.onItemChange(pedestalBlockEntity.item.getItem(), ItemStack.EMPTY.getItem());
+                Containers.dropItemStack(level,pos.getX(),pos.getY(),pos.getZ(),pedestalBlockEntity.item);
             }
         }
         super.onRemove(state, level, pos, $$3, $$4);

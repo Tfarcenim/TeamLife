@@ -131,7 +131,7 @@ public class ModTeamsServer extends SavedData {
     public void modifyDefaultHealth(Player player) {
         AttributeModifier modifier = player.getAttribute(Attributes.MAX_HEALTH).getModifier(uuid);
         if (modifyHealth != null) {
-            if (modifier.amount() != modifyHealth.amount()) {
+            if (modifier == null || modifier.amount() != modifyHealth.amount()) {
             player.getAttribute(Attributes.MAX_HEALTH).removeModifier(uuid);
             player.getAttribute(Attributes.MAX_HEALTH).addPermanentModifier(modifyHealth);
             }

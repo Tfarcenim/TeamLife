@@ -27,9 +27,10 @@ public class TeamLifeCommands {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal(TeamLife.MOD_ID)
-                        .then(Commands.literal("modify_default_player_health").then(Commands.argument("health",DoubleArgumentType.doubleArg(
-                                -19.99,1000
-                        )).executes(TeamLifeCommands::setDefaultPlayerHealth)))
+                .requires(commandSourceStack -> commandSourceStack.hasPermission(Commands.LEVEL_GAMEMASTERS))
+                .then(Commands.literal("modify_default_player_health").then(Commands.argument("health", DoubleArgumentType.doubleArg(
+                        -19.99, 1000))
+                        .executes(TeamLifeCommands::setDefaultPlayerHealth)))
                 .then(Commands.literal("add").then(Commands.argument("team", StringArgumentType.word())
                         .executes(TeamLifeCommands::createTeam)))
                 .then(Commands.literal("remove").then(Commands.argument("team", StringArgumentType.word()).suggests(ALL_TEAMS)
@@ -61,52 +62,53 @@ public class TeamLifeCommands {
     };
 
     private static int setDefaultPlayerHealth(CommandContext<CommandSourceStack> context) {
-        double modifier = DoubleArgumentType.getDouble(context,"health");
+        double modifier = DoubleArgumentType.getDouble(context, "health");
         CommandSourceStack commandSourceStack = context.getSource();
         ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
         modTeamsServer.setDefaultHealthModifierAndSync(modifier);
-        commandSourceStack.sendSuccess(() -> Component.literal("Default health modifier " + modifier + " applied to all players"),false);
+        commandSourceStack.sendSuccess(() -> Component.literal("Default health modifier " + modifier + " applied to all players"), true);
         return 1;
     }
 
     private static int createTeam(CommandContext<CommandSourceStack> context) {
-        String team = StringArgumentType.getString(context,"team");
+        String team = StringArgumentType.getString(context, "team");
         CommandSourceStack commandSourceStack = context.getSource();
         ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
         boolean worked = modTeamsServer.createTeam(team);
         if (worked) {
-            commandSourceStack.sendSuccess(() -> Component.literal("Created team with name "+team),false);
+            commandSourceStack.sendSuccess(() -> Component.literal("Created team with name " + team), true);
             return 1;
         } else {
-            commandSourceStack.sendSuccess(() -> Component.literal("Already a team with name "+team),false);
+            commandSourceStack.sendSuccess(() -> Component.literal("Already a team with name " + team), true);
             return 0;
         }
     }
 
     private static int removeTeam(CommandContext<CommandSourceStack> context) {
-        String team = StringArgumentType.getString(context,"team");
+        String team = StringArgumentType.getString(context, "team");
         CommandSourceStack commandSourceStack = context.getSource();
         ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
         modTeamsServer.removeTeamByName(team);
+        commandSourceStack.sendSuccess(() -> Component.literal("Removed team with name " + team), true);
         return 1;
     }
 
     private static int addMembers(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Collection<ServerPlayer> playerList = EntityArgument.getPlayers(context,"players");
-        String team = StringArgumentType.getString(context,"team");
+        Collection<ServerPlayer> playerList = EntityArgument.getPlayers(context, "players");
+        String team = StringArgumentType.getString(context, "team");
         CommandSourceStack commandSourceStack = context.getSource();
         ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
-        modTeamsServer.addMembers(team,playerList);
+        modTeamsServer.addMembers(team, playerList);
 
         return playerList.size();
     }
 
     private static int removeMembers(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
-        Collection<ServerPlayer> playerList = EntityArgument.getPlayers(context,"players");
-        String team = StringArgumentType.getString(context,"team");
+        Collection<ServerPlayer> playerList = EntityArgument.getPlayers(context, "players");
+        String team = StringArgumentType.getString(context, "team");
         CommandSourceStack commandSourceStack = context.getSource();
         ModTeamsServer modTeamsServer = ModTeamsServer.getOrCreateDefaultInstance(commandSourceStack.getServer());
-        modTeamsServer.removeMembers(team,playerList);
+        modTeamsServer.removeMembers(team, playerList);
 
         return playerList.size();
     }
@@ -153,7 +155,7 @@ public class TeamLifeCommands {
                 return 0;
             }
 
-            modTeamsServer.setMaxHealth(modTeam,maxHealth);
+            modTeamsServer.setMaxHealth(modTeam, maxHealth);
 
             commandSourceStack.sendSuccess(() -> Component.literal("Set max health of team " + teamString + " to " + maxHealth), true);
             return 1;

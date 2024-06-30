@@ -31,6 +31,7 @@ public class ModTeam {
     private final List<UUID> members = new ArrayList<>();
 
     public static float STARTING_HEALTH = 20;
+    public static float MAX = 100;
     private final HolderLookup.Provider provider;
     public float health = STARTING_HEALTH;
     public float maxHealth = STARTING_HEALTH;
@@ -53,7 +54,7 @@ public class ModTeam {
     }
 
     public void defaultHealth() {
-        maxHealth = members.size() * STARTING_HEALTH;
+        maxHealth = Math.min(members.size() * STARTING_HEALTH,MAX);
         health = Math.min(health,maxHealth);
     }
 

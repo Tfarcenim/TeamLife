@@ -46,6 +46,8 @@ public class TeamLife {
 
     }
 
+    static boolean refillTeamHealth;
+
     //copy personal hearts attribute
     public static void playerClone(Player oldPlayer, Player newPlayer, boolean wasDeath) {
         AttributeInstance attributeInstanceOld = oldPlayer.getAttribute(Attributes.MAX_HEALTH);
@@ -63,7 +65,7 @@ public class TeamLife {
 
         }
 
-        if (wasDeath) {
+        if (wasDeath && refillTeamHealth) {
             ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(oldPlayer.getServer());
             if (modTeamsServer != null) {
                 ModTeam modTeam = getTeamSideSafe(oldPlayer);

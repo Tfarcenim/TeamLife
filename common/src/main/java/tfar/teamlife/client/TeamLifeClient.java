@@ -10,10 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.component.DyedItemColor;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.teamlife.TeamLife;
-import tfar.teamlife.init.ModItems;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
 
@@ -44,8 +42,14 @@ public class TeamLifeClient {
         TeamLifeClient.team = team;
     }
 
+    enum Type {
+        hotbar,bottom_right,bottom_left;
+    }
 
     public static void renderGuiLayer(GuiGraphics guiGraphics,float deltaTick) {
+
+        Type type = Type.bottom_right;
+
         Gui gui = Minecraft.getInstance().gui;
         if (team != null && Minecraft.getInstance().gameMode.canHurtPlayer()) {
                 Entity entity = Minecraft.getInstance().cameraEntity;
@@ -53,35 +57,56 @@ public class TeamLifeClient {
                     int health = Mth.ceil(team.health);
                     boolean flag = false;
 
-                    int x = guiGraphics.guiWidth() / 2 - 91;
-                    int y = guiGraphics.guiHeight() - Services.PLATFORM.guiLeft(gui);
                     float maxHealth = team.maxHealth;
-                    int rows = Mth.ceil(maxHealth / 20.0F);
-                    int i2 = Math.max(10 - (rows - 2), 3) + 1;
-                    Services.PLATFORM.setGuiLeft(gui,Services.PLATFORM.guiLeft(gui) + rows * 10);
+                    int rows = Math.min(Mth.ceil(maxHealth / 20.0F),10);
+                    int height = Math.max(10 - (rows - 2), 3);
+
+                    int x = getXPos(guiGraphics,type);
+                    int y = getYPos(guiGraphics,gui,type,rows,height);
+                    if (type == Type.hotbar) {
+                        Services.PLATFORM.setGuiLeft(gui, Services.PLATFORM.guiLeft(gui) + rows * 10);
+                    }
                     int k2 = -1;
                     Minecraft.getInstance().getProfiler().push("health");
-                    renderTeamHearts(gui,guiGraphics, player, x, y, i2, k2, maxHealth, health, flag);
+                    renderTeamHearts(guiGraphics, x, y, height, k2, maxHealth, health, flag);
                     Minecraft.getInstance().getProfiler().pop();
                 }
         }
     }
 
-    private static void renderTeamHearts(Gui gui, GuiGraphics guiGraphics, Player player, int x, int y, int height, int offsetHeartIndex, float maxHealth, float currentHealth, boolean renderHighlight) {
-        boolean hardcore = player.level().getLevelData().isHardcore();
-        int heartContainers = (int) Math.min(Math.ceil(maxHealth / 2),100);
-        int fullHeartContainers =(int) Math.min(Math.floor(currentHealth / 2),100);
+    static int getXPos(GuiGraphics guiGraphics,Type type) {
+        return switch (type) {
+            case hotbar ->
+                guiGraphics.guiWidth() / 2 - 91;
+            case bottom_left -> 1;
+            case bottom_right -> guiGraphics.guiWidth() - 10*10;
+        };
+    }
+
+    static int getYPos(GuiGraphics guiGraphics,Gui gui,Type type,int rows,int height) {
+        return switch (type) {
+            case hotbar -> guiGraphics.guiHeight() - Services.PLATFORM.guiLeft(gui);
+            case bottom_left,bottom_right -> guiGraphics.guiHeight() - 10;
+        };
+
+    }
+
+    static int renderCap = 100;
+
+    private static void renderTeamHearts(GuiGraphics guiGraphics, int x, int y, int height, int offsetHeartIndex, float maxHealth, float currentHealth, boolean renderHighlight) {
+        int heartContainers = (int) Math.min(Math.ceil(maxHealth / 2),renderCap);
+        int fullHeartContainers =(int) Math.min(Math.floor(currentHealth / 2),renderCap);
         boolean halfHeart = Math.floor(currentHealth) % 2 != 0;
 
         for (int i = 0; i < heartContainers;i++) {
             int row = i /10;
             int column = i %10;
             if (i < fullHeartContainers) {
-                renderHeart(guiGraphics,HeartType.FULL,x + column * 9,y - row * 10);
+                renderHeart(guiGraphics,HeartType.FULL,x + column * 9,y - row * height);
             } else if (i == fullHeartContainers && halfHeart){
-                renderHeart(guiGraphics,HeartType.HALF,x + column * 9,y - row * 10);
+                renderHeart(guiGraphics,HeartType.HALF,x + column * 9,y - row * height);
             } else{
-                renderHeart(guiGraphics,HeartType.EMPTY,x + column * 9,y - row * 10);
+                renderHeart(guiGraphics,HeartType.EMPTY,x + column * 9,y - row * height);
             }
         }
 

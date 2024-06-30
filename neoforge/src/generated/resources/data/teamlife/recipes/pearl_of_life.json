@@ -3,13 +3,13 @@
   "category": "equipment",
   "ingredients": [
     {
-      "item": "teamlife:team_regeneration"
+      "item": "teamlife:team_regeneration_artifact"
     },
     {
       "item": "teamlife:personal_heart"
     },
     {
-      "tag": "teamlife:chestplates_with_elytra"
+      "item": "teamlife:chestplate_with_elytra_artifact"
     },
     {
       "item": "teamlife:end_core"
@@ -21,13 +21,13 @@
       "item": "teamlife:overworld_core"
     },
     {
-      "item": "teamlife:team_inventory_pouch"
+      "item": "teamlife:team_inventory_pouch_artifact"
     },
     {
       "item": "teamlife:team_heart"
     },
     {
-      "item": "teamlife:personal_beacon"
+      "item": "teamlife:personal_beacon_artifact"
     }
   ],
   "result": {

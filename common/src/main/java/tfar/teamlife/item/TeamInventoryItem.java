@@ -26,7 +26,7 @@ public class TeamInventoryItem extends Item implements Artifact {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
-        if (!TeamLife.canUseArtifact(TeamLife.getTeamSideSafe(player),this)) return InteractionResultHolder.fail(stack);
+        if (!TeamLife.canPlayerUseArtifact(player,this)) return InteractionResultHolder.fail(stack);
 
         if (!level.isClientSide) {
             ModTeamsServer modTeamsServer = ModTeamsServer.getInstance((ServerLevel) level);

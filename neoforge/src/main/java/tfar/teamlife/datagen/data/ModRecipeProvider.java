@@ -50,7 +50,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PERSONAL_HEART)
                 .define('a', ModItems.HEALTH_TOTEM).define('b',Items.DIAMOND_BLOCK)
-                .define('g',Items.GOLDEN_APPLE)
+                .define('g',Items.ENCHANTED_GOLDEN_APPLE)
                 .pattern("aba")
                 .pattern("bgb")
                 .pattern("aba")
@@ -91,6 +91,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern(" b ")
                 .pattern(" a ")
                 .unlockedBy(getHasName(Items.LODESTONE),has(Items.LODESTONE))
+                .save(pWriter);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.INFINITE_FIREWORK_ROCKET_ARTIFACT)
+                .define('a', Items.GOLD_BLOCK).define('b',ModItems.INFINITE_FIREWORK_ROCKET)
+                .pattern("aaa")
+                .pattern("aba")
+                .pattern("aaa")
+                .unlockedBy(getHasName(ModItems.INFINITE_FIREWORK_ROCKET),has(ModItems.INFINITE_FIREWORK_ROCKET))
                 .save(pWriter);
 
         ShapelessRecipeBuilder.shapeless(RecipeCategory.COMBAT,ModItems.PEARL_OF_LIFE)

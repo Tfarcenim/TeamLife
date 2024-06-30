@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BeaconBlockEntity;
+import tfar.teamlife.PlayerDuck;
 import tfar.teamlife.TeamLife;
 import tfar.teamlife.init.ModDataComponents;
 import tfar.teamlife.init.ModItems;
@@ -139,26 +140,33 @@ public class PersonalBeaconItem extends Item implements Artifact {
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slot, boolean isHeld) {
         super.inventoryTick(stack, level, entity, slot, isHeld);
         if (!level.isClientSide && entity instanceof LivingEntity living && entity.tickCount % 80 == 0) {
-            Holder<MobEffect> primary = stack.get(ModDataComponents.PRIMARY_EFFECT);
 
-            Holder<MobEffect> secondary = stack.get(ModDataComponents.SECONDARY_EFFECT);
+            if (living instanceof Player player && ((PlayerDuck)player).lastUsedBeacon() <=0 && TeamLife.canPlayerUseArtifact(player,this)) {
 
-            if (primary != null || secondary != null) {
+                Holder<MobEffect> primary = stack.get(ModDataComponents.PRIMARY_EFFECT);
 
-                boolean same = Objects.equals(primary, secondary);
+                Holder<MobEffect> secondary = stack.get(ModDataComponents.SECONDARY_EFFECT);
 
-                if (same) {
-                    living.addEffect(new MobEffectInstance(primary, 100, 1,true,true));
-                    return;
-                }
+                if (primary != null || secondary != null) {
 
-                if (primary != null) {
-                    living.addEffect(new MobEffectInstance(primary, 100, 0,true,true));
-                }
+                    boolean same = Objects.equals(primary, secondary);
+
+                    if (same) {
+                        living.addEffect(new MobEffectInstance(primary, 100, 1, true, true));
+                        return;
+                    }
+
+                    if (primary != null) {
+                        living.addEffect(new MobEffectInstance(primary, 100, 0, true, true));
+                    }
 
 
-                if (secondary != null) {
-                    living.addEffect(new MobEffectInstance(secondary, 100, 0,true,true));
+                    if (secondary != null) {
+                        living.addEffect(new MobEffectInstance(secondary, 100, 0, true, true));
+                    }
+
+                    ((PlayerDuck) player).setLastUsedBeacon(5);
+
                 }
             }
         }

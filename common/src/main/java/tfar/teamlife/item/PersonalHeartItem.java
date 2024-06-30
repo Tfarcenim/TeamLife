@@ -1,5 +1,7 @@
 package tfar.teamlife.item;
 
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -38,16 +40,20 @@ public class PersonalHeartItem extends Item {
         );*/
 
         if (!level.isClientSide) {
-
-            AttributeInstance attributeInstance = player.getAttribute(Attributes.MAX_HEALTH);
-            if (attributeInstance != null) {
-                AttributeModifier existing = attributeInstance.getModifier(uuid);
-                if (existing == null) {
-                    attributeInstance.addPermanentModifier(new AttributeModifier(uuid,"Personal Hearts",boost, AttributeModifier.Operation.ADD_VALUE));
-                } else {
-                    attributeInstance.removeModifier(uuid);
-                    attributeInstance.addPermanentModifier(new AttributeModifier(uuid,"Personal Hearts",existing.amount()+boost, AttributeModifier.Operation.ADD_VALUE));
+            if (player.getMaxHealth() < 100) {
+                AttributeInstance attributeInstance = player.getAttribute(Attributes.MAX_HEALTH);
+                if (attributeInstance != null) {
+                    AttributeModifier existing = attributeInstance.getModifier(uuid);
+                    if (existing == null) {
+                        attributeInstance.addPermanentModifier(new AttributeModifier(uuid, "Personal Hearts", boost, AttributeModifier.Operation.ADD_VALUE));
+                    } else {
+                        attributeInstance.removeModifier(uuid);
+                        attributeInstance.addPermanentModifier(new AttributeModifier(uuid, "Personal Hearts", existing.amount() + boost, AttributeModifier.Operation.ADD_VALUE));
+                    }
+                    player.setHealth((float) (player.getHealth() + boost));
                 }
+            } else {
+                ((ServerPlayer) player).sendSystemMessage(Component.literal("Personal hearts at max"), true);
             }
         }
 
