@@ -8,6 +8,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import tfar.teamlife.init.ModItems;
+import tfar.teamlife.item.TeamInventoryItem;
 
 public class TeamInventory extends SimpleContainer {
 
@@ -42,8 +43,12 @@ public class TeamInventory extends SimpleContainer {
                 listtag.add(itemstack.save(provider, compoundtag));
             }
         }
-
         return listtag;
+    }
+
+    @Override
+    public boolean canPlaceItem(int $$0, ItemStack stack) {
+        return !(stack.getItem()instanceof TeamInventoryItem) && super.canPlaceItem($$0, stack);
     }
 
     @Override

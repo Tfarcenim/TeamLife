@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import tfar.teamlife.TeamLife;
 import tfar.teamlife.init.ModItems;
+import tfar.teamlife.menu.TeamInventoryMenu;
 import tfar.teamlife.world.ModTeam;
 import tfar.teamlife.world.ModTeamsServer;
 
@@ -29,13 +30,13 @@ public class TeamInventoryItem extends Item implements Artifact {
         if (!TeamLife.canPlayerUseArtifact(player,this)) return InteractionResultHolder.fail(stack);
 
         if (!level.isClientSide) {
-            ModTeamsServer modTeamsServer = ModTeamsServer.getInstance((ServerLevel) level);
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(level.getServer());
             if (modTeamsServer != null) {
                 ModTeam modTeam = modTeamsServer.findTeam((ServerPlayer) player);
                 if (modTeam != null) {
                     player.openMenu(
                             new SimpleMenuProvider(
-                                    (p_53124_, p_53125_, p_53126_) -> ChestMenu.sixRows(p_53124_, p_53125_, modTeam.teamInventory), stack.getHoverName()
+                                    (p_53124_, p_53125_, p_53126_) -> new TeamInventoryMenu(p_53124_,p_53125_,modTeam.teamInventory), stack.getHoverName()
                             )
                     );
                 }

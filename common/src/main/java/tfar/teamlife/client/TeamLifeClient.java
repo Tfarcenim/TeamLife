@@ -6,12 +6,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.apache.commons.lang3.ArrayUtils;
 import tfar.teamlife.TeamLife;
+import tfar.teamlife.init.ModMenus;
 import tfar.teamlife.platform.Services;
 import tfar.teamlife.world.ModTeam;
 
@@ -23,7 +25,7 @@ public class TeamLifeClient {
     }
 
     public static void setup() {
-        //MenuScreens.register(ModMenus.PERSONAL_BEACON, PersonalBeaconScreen::new);
+        MenuScreens.register(ModMenus.TEAM_INVENTORY, TeamInventoryScreen::new);
     }
 
     public static void logout() {

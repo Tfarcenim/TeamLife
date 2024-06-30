@@ -180,7 +180,7 @@ public class ModTeamsServer extends SavedData {
     }
 
     @Nullable
-    public static ModTeamsServer getInstance(ServerLevel serverLevel) {
+    static ModTeamsServer getInstance(ServerLevel serverLevel) {
         return serverLevel.getDataStorage()
                 .get(factory(serverLevel), TeamLife.MOD_ID);
     }

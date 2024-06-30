@@ -46,7 +46,7 @@ public class PedestalBlock extends Block implements EntityBlock {
         super.setPlacedBy(level, pos, state, placer, stack);
         BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity && placer instanceof ServerPlayer serverPlayer) {
-            ModTeamsServer modTeamsServer = ModTeamsServer.getInstance((ServerLevel) level);
+            ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(level.getServer());
             if (modTeamsServer != null) {
                 ModTeam modTeam = modTeamsServer.findTeam(serverPlayer);
                 if (modTeam != null) {
@@ -75,7 +75,7 @@ public class PedestalBlock extends Block implements EntityBlock {
 
         if (blockEntity instanceof PedestalBlockEntity pedestalBlockEntity) {
             if (!level.isClientSide) {
-                ModTeamsServer modTeamsServer = ModTeamsServer.getInstance((ServerLevel) level);
+                ModTeamsServer modTeamsServer = ModTeamsServer.getDefaultInstance(level.getServer());
                 if (modTeamsServer != null) {
                     ModTeam modTeam = modTeamsServer.findTeam((ServerPlayer) player);
                     if (modTeam != null) {
